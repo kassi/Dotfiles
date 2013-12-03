@@ -10,7 +10,7 @@ export PERL5LIB=
 
 ### perlbrew
 export PERLBREW_ROOT=$HOME/Library/Perl
-source $PERLBREW_ROOT/etc/bashrc
+[ -f "$PERLBREW_ROOT/etc/bashrc" ] && . $PERLBREW_ROOT/etc/bashrc
 
 ### Python
 export PYTHONPATH="$HOME/Library/Python/2.7"
@@ -25,7 +25,7 @@ export RDOCOPT="--encoding=UTF-8"
 # eval "$(rbenv init -)"
 
 ### RVM
-source /Users/Kassi/.rvm/scripts/rvm
+[ -f "/Users/Kassi/.rvm/scripts/rvm" ] && . /Users/Kassi/.rvm/scripts/rvm
 export rvm_silence_path_mismatch_check_flag=1 # to avoid stupid warnings
 
 ### Perforce
