@@ -1,0 +1,63 @@
+[include]
+    path = Library/Dotfiles.private/.gitconfig
+
+[core]
+    editor = subl -w
+    excludesfile = .gitignore
+
+[color]
+    diff = yes
+    status = yes
+	ui = true
+
+[alias]
+    amend = commit --amend --reuse-message=HEAD
+    ci = commit
+    co = checkout
+
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lm = log master.. --no-merges
+
+    open-modified = !"subl -a $(git status --porcelain | perl -ne 'm/( M|\\?\\?)\\s+(.+)/ and print qq/$2\n/')"
+    squash = merge --squash
+    st = status -sb
+    undo = reset --hard HEAD^1
+    update-fork = !"git fetch origin -v; git fetch upstream -v; git rebase upstream/master"
+    todo = grep --heading --break --ignore-case -e 'TODO:'
+    fix  = grep --heading --break --ignore-case -e 'FIX:' -e 'FIXME:'
+
+    bbcreate = !"bitbucket create-from-local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
+
+[github]
+    password = !security find-internet-password -a kassi -s github.com -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
+
+[gist]
+    browse = yes
+    private = yes
+
+[credential]
+    helper = osxkeychain
+
+[diff]
+    tool = p4diff
+
+[merge]
+    tool = p4merge
+
+[merge "gemfilelock"]
+  name = relocks the gemfile.lock
+  driver = bundle install
+
+[mergetool]
+    prompt = false
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[push]
+    default = current

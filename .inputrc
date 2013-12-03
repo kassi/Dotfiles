@@ -1,0 +1,7 @@
+# Jump with ESC+left / ESC+right through the command line
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# if enabled, this lets you hit tab to auto-complete a file or
+# directory name ignoring case
+set completion-ignore-case Off

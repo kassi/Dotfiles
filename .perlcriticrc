@@ -1,0 +1,5 @@
+[CodeLayout::RequireTidyCode]
+    perltidyrc = ~/.perltidyrc
+[-Miscellanea::RequireRcsKeywords]
+[-Documentation::RequirePodAtEnd]
+[-Documentation::RequirePodSections]

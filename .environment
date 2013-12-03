@@ -1,0 +1,14 @@
+#!/bin/bash
+env | while IFS="=" read -r var value; do
+  if [[ -n "$value" ]]; then
+    case "$var" in
+      _*)
+        ;;
+      PS1)
+        ;;
+      *)
+        launchctl setenv $var "$value"
+        ;;
+    esac
+  fi
+done

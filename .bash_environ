@@ -1,0 +1,68 @@
+### Oxygen
+### temporarily disabled. Homebrew complained about it
+### export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/Developer/oxygen
+
+### Java
+export JAVA_HOME=/Library/Java/Home
+
+### Perl
+export PERL5LIB=
+
+### perlbrew
+export PERLBREW_ROOT=$HOME/Library/Perl
+source $PERLBREW_ROOT/etc/bashrc
+
+### Python
+export PYTHONPATH="$HOME/Library/Python/2.7"
+
+### Ruby
+export RDOCOPT="--encoding=UTF-8"
+# disabled, because rvm complains about it
+# export RUBYOPT=rubygems
+
+### rbenv
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
+
+### RVM
+source /Users/Kassi/.rvm/scripts/rvm
+export rvm_silence_path_mismatch_check_flag=1 # to avoid stupid warnings
+
+### Perforce
+#export P4PORT=1666
+#export P4CLIENT=$USER
+#export P4ROOT=$HOME/Projects/P4ROOT
+
+# Make clean tarballs and more in Leopard
+export COPYFILE_DISABLE=true
+
+# Standard environment variables
+export CDPATH=.:~:~/Documents:~/Documents/Tutorials:~/Sites/kluks.de/rails
+export EDITOR="subl"
+export BUNDLER_EDITOR="subl"
+export HISTSIZE=5000
+
+export PATH=~/bin:${JAVA_HOME}:/usr/local/bin:/usr/local/share/python:$PATH
+
+### Enhanced Git featured prompt
+export PS1=$Yellow$PathShort$Color_Off'$(git branch &>/dev/null;\
+if [ $? -eq 0 ]; then \
+  echo \
+    "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+      if [ "$?" -eq "0" ]; then \
+        echo -n " '$Green'"$(_git_branch_fmt "'$IBlack'['$Green'%s'$IBlack']"); \
+      else \
+        echo -n " '$IRed'"$(_git_branch_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
+      fi) $( \
+      _git_stashes "'$IBlack'['$Yellow'%s'$IBlack']") $( \
+      echo `git status` | grep "Your branch is " > /dev/null 2>&1; \
+      if [ "$?" -eq "0" ]; then \
+        echo -n $(_git_remote_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
+      else \
+        echo -n $(_git_remote_fmt "'$IBlack'['$Green'%s'$IBlack']"); \
+      fi)"; \
+else \
+  echo -n " '$Color_Off'"; \
+fi)'"\n"$IBlack"\t"$Color_Off" \$ "
+
+[ -f "${HOME}/.bash_secrets" ] && . "${HOME}/.bash_secrets"
