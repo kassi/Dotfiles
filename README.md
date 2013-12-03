@@ -4,7 +4,7 @@ Personal dotfiles.
 
 ## Installation
 
-    curl https://raw.github.com/kassi/Dotfiles.install/master/install.sh | bash -s Dotfiles
+    curl -fsSL https://raw.github.com/kassi/Dotfiles.install/master/install.sh | bash -s Dotfiles
 
 ## Author
 
