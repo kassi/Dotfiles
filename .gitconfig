@@ -1,5 +1,5 @@
 [include]
-    path = Library/Dotfiles.private/.gitconfig
+    path = .gitconfig.private
 
 [core]
     editor = subl -w

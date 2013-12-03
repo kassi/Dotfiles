@@ -17,7 +17,7 @@ alias rlc='rails console'
 alias rls='railsserver'
 # Tools
 alias exif='exiftool -a -u -g1'
-alias s='/Applications/Developer/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl'
+alias s='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias py='python'
 alias reload='source ~/.bash_profile'
 alias saxon9='java -jar "/Applications/saxonb9-1-0-8j/saxon9.jar"'
