@@ -55,11 +55,11 @@ if [ $? -eq 0 ]; then \
         echo -n " '$IRed'"$(_git_branch_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
       fi) $( \
       _git_stashes "'$IBlack'['$Yellow'%s'$IBlack']") $( \
-      echo `git status` | grep "Your branch is " > /dev/null 2>&1; \
+      echo `git status` | grep "Your branch is up-to-date" > /dev/null 2>&1; \
       if [ "$?" -eq "0" ]; then \
-        echo -n $(_git_remote_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
-      else \
         echo -n $(_git_remote_fmt "'$IBlack'['$Green'%s'$IBlack']"); \
+      else \
+        echo -n $(_git_remote_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
       fi)"; \
 else \
   echo -n " '$Color_Off'"; \
