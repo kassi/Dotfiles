@@ -1,0 +1,13 @@
+.DS_Store
+.codersdojo
+.project
+.rsync
+.scpt
+.tags
+.tags_sorted_by_file
+
+*.pyc
+
+package-metadata.json
+rails_best_practices_output.html
+db/data.yml
