@@ -4,6 +4,12 @@
 
 ### Java
 export JAVA_HOME=/Library/Java/Home
+PATH=${JAVA_HOME}:$PATH
+
+### MySQL
+export MYSQL_HOME=/usr/local/mysql/bin
+export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
+PATH=${MYSQL_HOME}:$PATH
 
 ### Perl
 export PERL5LIB=
@@ -42,7 +48,7 @@ export EDITOR="subl"
 export BUNDLER_EDITOR="subl"
 export HISTSIZE=5000
 
-export PATH=~/bin:${JAVA_HOME}:/usr/local/bin:/usr/local/share/python:$PATH
+export PATH=~/bin:/usr/local/bin:/usr/local/share/python:$PATH
 
 ### Enhanced Git featured prompt
 export PS1=$Yellow$PathShort$Color_Off'$(git branch &>/dev/null;\
