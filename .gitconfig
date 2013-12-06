@@ -3,7 +3,7 @@
 
 [core]
     editor = subl -w
-    excludesfile = .gitignore
+    excludesfile = ~/.gitignore
 
 [color]
     diff = yes
