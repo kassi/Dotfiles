@@ -1,8 +1,8 @@
 # Operating system
 alias grep='grep --color'
-alias l='ls -FlagG'
-alias ls='ls -G'
-alias ll='ls -FlagG'
+alias l='ls -FGlag'
+alias ls='ls -FG'
+alias ll='ls -FGla'
 alias top='top -ocpu'
 # Path Helper
 alias cdkl='cd ~/Sites/kluks.de/rails/kluks.de'
