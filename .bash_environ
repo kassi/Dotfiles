@@ -46,7 +46,7 @@ export COPYFILE_DISABLE=true
 export CDPATH=.:~:~/Documents:~/Documents/Tutorials:~/Sites/kluks.de/rails
 export EDITOR="subl"
 export BUNDLER_EDITOR="subl"
-export HISTSIZE=5000
+export HISTSIZE=10000
 
 export PATH=~/bin:/usr/local/bin:/usr/local/share/python:$PATH
 
