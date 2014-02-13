@@ -26,7 +26,7 @@
     todo = grep --heading --break --ignore-case -e 'TODO:'
     fix  = grep --heading --break --ignore-case -e 'FIX:' -e 'FIXME:'
 
-    bbcreate = !"bitbucket create-from-local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
+    bbcreate = !"bitbucket create_from_local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
 
 [github]
     password = !security find-internet-password -a kassi -s github.com -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
