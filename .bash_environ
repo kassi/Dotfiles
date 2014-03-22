@@ -20,6 +20,7 @@ export PERLBREW_ROOT=$HOME/Library/Perl
 
 ### Python
 export PYTHONPATH="$HOME/Library/Python/2.7"
+export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
 ### Ruby
 export RDOCOPT="--encoding=UTF-8"
