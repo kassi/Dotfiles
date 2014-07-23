@@ -1,0 +1,5 @@
+# Rails
+alias be='bundle exec'
+alias bo='bundle open'
+alias g='bundle exec guard'
+alias rake='bundle exec rake'

@@ -1,0 +1,43 @@
+## Git featured prompt functions
+
+declare git_branch
+
+function __git_branch {
+    if [ -z "$git_branch" ]; then
+        local branch="$(git symbolic-ref HEAD 2>/dev/null)"
+        git_branch=${branch##refs/heads/}
+    fi
+    echo $git_branch
+}
+
+function _git_branch_fmt
+{
+    local format="$1"
+    if [ -z "$format" ]; then format=" [%s]"; fi
+    printf "$format" "$(__git_branch)"
+}
+
+function _git_remote_fmt
+{
+    local format="$1"
+    if [ -z "$format" ]; then format=" [%s]"; fi
+    local remote="$(git remote -v show 2>/dev/null | grep "(push)" | awk '{print $1" "$2}')";
+    if [ -n "$remote" ]; then
+        printf "$format" "$remote";
+    fi
+}
+
+function __git_repository {
+    local repos="$(git config --get branch.$(__git_branch).remote)"
+    local remote="$(git remote -v show 2>/dev/null | egrep "^$repos[[:space:]]+.*\(push\)" | perl -ne 'm/git(?:\@|:\/\/)source.xing.com(?:\/|:)(.*)\.git/ && print $1')";
+    echo $remote
+}
+
+function _git_stashes
+{
+    local format="$1"
+    if [ -z "$format" ]; then format=" [%s]"; fi
+    local stashes="$(git stash list | grep "WIP on $(__git_branch)" | perl -ne '{m/^stash(\@\{\d+\})/ && push @a, $1} END {print join (" ",@a)}' 2>/dev/null)";
+    printf "$format" "$stashes";
+}
+

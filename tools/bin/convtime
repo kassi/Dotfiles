@@ -1,0 +1,40 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use DateTime;
+use DateTime::Format::Flexible;
+use Try::Tiny;
+
+our $tz = DateTime::TimeZone->new( name => 'local' );
+
+if(@ARGV) {
+    convtime($_) foreach @ARGV;
+}
+else {
+    while(<>) {
+        convtime($_);
+    }
+}
+
+sub convtime {
+    my $ts = shift;
+    my $dt;
+    printf("given: %s\n", $ts);
+    if ($ts =~ m/^\d+$/) {
+        $dt = DateTime->from_epoch( epoch => $ts, time_zone => $tz );
+    }
+    else {
+        try {
+            $dt = DateTime::Format::Flexible->parse_datetime($ts);
+        }
+        catch {
+            warn("couldn't parse datetime!\n");
+        };
+    }
+    if ($dt) {
+        printf("epoch: %s\n", $dt->epoch);
+        printf("local: %s\n", $dt->set_time_zone('local')->strftime("%F %T %Z"));
+        printf("utc  : %s\n", $dt->set_time_zone('UTC')->strftime("%F %T %Z"));
+    }
+}

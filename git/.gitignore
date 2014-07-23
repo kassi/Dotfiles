@@ -6,6 +6,7 @@
 .tags
 .tags_sorted_by_file
 
+*.orig
 *.pyc
 
 package-metadata.json

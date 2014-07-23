@@ -1,0 +1,93 @@
+[include]
+    path = .gitconfig.private
+
+[alias]
+    amend = commit --amend --reuse-message=HEAD
+    br = branch
+    ci = commit
+    co = checkout
+    # cb = !"git branch | cut -c 3- | selecta | xargs git checkout"
+    cb = change-branch
+
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lm = log master.. --no-merges
+
+    open-diff = !"subl -a $(git diff --name-only master..)"
+    open-modified = !"subl -a $(git status --porcelain | perl -ne 'm/( M|\\?\\?)\\s+(.+)/ and print qq/$2\n/')"
+    squash = merge --squash
+    st = status -sb
+    standup = !"git log --reverse --branches --since='$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi)' --author=$(git config --get user.email) --format=format:'%C(cyan) %ad %C(yellow)%h %Creset %s %Cgreen%d' --date=local"
+    undo = reset --hard HEAD^1
+    update-fork = !"git fetch origin -v; git fetch upstream -v; git rebase upstream/master"
+
+    todo = grep --heading --break --ignore-case -e 'TODO:'
+    fixme= grep --heading --break --ignore-case -e 'FIX:' -e 'FIXME:'
+
+    bbcreate = !"bitbucket create_from_local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
+
+[apply]
+    whitespace = nowarn
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+    ui = true
+
+[core]
+    editor = /usr/local/bin/subl -w
+    excludesfile = ~/.gitignore
+
+[credential]
+    helper = osxkeychain
+
+[diff]
+    tool = p4diff
+    tool = chdiff
+
+[difftool]
+    prompt = false
+
+[difftool "chdiff"]
+  cmd = /usr/bin/env chdiff $LOCAL $REMOTE
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[filter "media"]
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
+
+[gist]
+    browse = yes
+    private = yes
+
+[github]
+    password = !security find-internet-password -a kassi -s github.com -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
+
+[merge]
+    keepBackup = false
+    tool = p4merge
+
+[merge "gemfilelock"]
+  name = relocks the gemfile.lock
+  driver = bundle install
+
+[mergetool]
+    prompt = false
+
+[mergetool "p4merge"]
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
+
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.9.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[push]
+    default = current
+

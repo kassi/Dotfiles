@@ -1,0 +1,3 @@
+# Make clean tarballs and more in Leopard
+export COPYFILE_DISABLE=true
+

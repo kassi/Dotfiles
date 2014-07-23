@@ -8,48 +8,18 @@ PATH=${JAVA_HOME}:$PATH
 
 ### MySQL
 export MYSQL_HOME=/usr/local/mysql/bin
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
+# export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 PATH=${MYSQL_HOME}:$PATH
 
-### Perl
-export PERL5LIB=
-
-### perlbrew
-export PERLBREW_ROOT=$HOME/Library/Perl
-[ -f "$PERLBREW_ROOT/etc/bashrc" ] && . $PERLBREW_ROOT/etc/bashrc
-
-### Python
-export PYTHONPATH="$HOME/Library/Python/2.7"
-export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-
-### Ruby
-export RDOCOPT="--encoding=UTF-8"
-# disabled, because rvm complains about it
-# export RUBYOPT=rubygems
-
-### rbenv
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-
-### RVM
-[ -f "/Users/Kassi/.rvm/scripts/rvm" ] && . /Users/Kassi/.rvm/scripts/rvm
-export rvm_silence_path_mismatch_check_flag=1 # to avoid stupid warnings
-
-### Perforce
-#export P4PORT=1666
-#export P4CLIENT=$USER
-#export P4ROOT=$HOME/Projects/P4ROOT
-
-# Make clean tarballs and more in Leopard
-export COPYFILE_DISABLE=true
-
 # Standard environment variables
-export CDPATH=.:~:~/Documents:~/Documents/Tutorials:~/Sites/kluks.de/rails
 export EDITOR="subl"
 export BUNDLER_EDITOR="subl"
 export HISTSIZE=10000
 
 export PATH=~/bin:/usr/local/bin:/usr/local/share/python:$PATH
+
+# Riak
+# ulimit -n 1024
 
 ### Enhanced Git featured prompt
 export PS1=$Yellow$PathShort$Color_Off'$(git branch &>/dev/null;\
