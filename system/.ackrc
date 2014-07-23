@@ -1,0 +1,5 @@
+--type-add
+html=.mtml
+--type-set=bin=.pdf
+--nobin
+--type-set=min=.min.js,.min.css

@@ -1,0 +1,3 @@
+# Tools
+alias s=/usr/local/bin/subl
+alias st='open -a SourceTree'
