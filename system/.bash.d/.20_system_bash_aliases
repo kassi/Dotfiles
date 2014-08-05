@@ -1,6 +1,6 @@
 # System
 alias grep='grep --color'
-alias l='ls -FGlag'
+alias l='ls -FGla'
+alias ll='ls -FGlag'
 alias ls='ls -FG'
-alias ll='ls -FGla'
 alias top='top -ocpu'
