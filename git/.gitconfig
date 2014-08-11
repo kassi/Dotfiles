@@ -23,7 +23,8 @@
     todo = grep --heading --break --ignore-case -e 'TODO:'
     fixme= grep --heading --break --ignore-case -e 'FIX:' -e 'FIXME:'
 
-    bbcreate = !"bitbucket create_from_local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
+  bbcreate = !"bitbucket create_from_local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
+  bbset = !"git remote add origin git@bitbucket.org:ksi/$(basename $(pwd)).git"
 
 [apply]
     whitespace = nowarn
@@ -57,8 +58,8 @@
 	path =
 
 [filter "media"]
-    clean = git-media-clean %f
-    smudge = git-media-smudge %f
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
 
 [gist]
     browse = yes
