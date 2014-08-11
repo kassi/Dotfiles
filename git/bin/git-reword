@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+  echo "Message missing"
+  exit 0
+fi
+git reset --soft HEAD^1
+git commit -am "$1"
