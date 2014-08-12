@@ -1,0 +1,4 @@
+#!/bin/sh
+#if [ -n "$VIMRUNTIME" ]; then vim --remote-tab-silent "$@"; else subl "$@"; fi
+if [ -n "$VIMRUNTIME" ]; then vim --remote-send "<C-\\><C-N>:e $@<CR>"; else subl "$@"; fi
+

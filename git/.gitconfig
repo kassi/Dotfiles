@@ -24,6 +24,7 @@
     fixme= grep --heading --break --ignore-case -e 'FIX:' -e 'FIXME:'
 
     bbcreate = !"bitbucket create_from_local --password $(security find-internet-password -a ksi -s bitbucket.org -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/')"
+    bbset = !"git remote add origin git@bitbucket.org:ksi/$(basename $(pwd)).git"
 
 [apply]
     whitespace = nowarn
@@ -37,7 +38,7 @@
 
 [core]
     editor = /usr/local/bin/subl -w
-    excludesfile = /Users/karsten.silkenbaeume/.gitignore
+    excludesfile = ~/.gitignore
 
 [credential]
     helper = osxkeychain
@@ -53,8 +54,8 @@
   cmd = /usr/bin/env chdiff $LOCAL $REMOTE
 
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path =
 
 [filter "media"]
     clean = git-media-clean %f
@@ -85,17 +86,8 @@
     keepBackup = false
 
 [mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.9.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+    cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.9.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
 
 [push]
     default = current
-
-[sendemail]
-    from = Karsten Silkenbaeumer <karsten.silkenbaeumer@xing.com>
-    suppresscc = all
-    to = core-email@jenkins.env.xing.com
-
-[user]
-    name = Karsten Silkenbäumer
-    email = karsten.silkenbaeumer@xing.com

@@ -12,7 +12,7 @@ export MYSQL_HOME=/usr/local/mysql/bin
 PATH=${MYSQL_HOME}:$PATH
 
 # Standard environment variables
-export EDITOR="subl"
+export EDITOR=edit
 export BUNDLER_EDITOR="subl"
 export HISTSIZE=10000
 
