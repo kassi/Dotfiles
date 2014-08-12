@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+gems=(
+  cocoapods
+  tmuxinator
+)
+for gem in ${gems[@]}; do
+  ${rvm_ruby_gem_home}/wrappers/gem install $gem
+done
