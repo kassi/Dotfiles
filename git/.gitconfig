@@ -1,6 +1,3 @@
-[include]
-    path = .gitconfig.private
-
 [alias]
     amend = commit --amend --reuse-message=HEAD
     br = branch
@@ -51,7 +48,7 @@
     prompt = false
 
 [difftool "chdiff"]
-  cmd = /usr/bin/env chdiff $LOCAL $REMOTE
+    cmd = /usr/bin/env chdiff $LOCAL $REMOTE
 
 [difftool "sourcetree"]
     cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -68,13 +65,16 @@
 [github]
     password = !security find-internet-password -a kassi -s github.com -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
 
+[include]
+    path = .gitconfig.private
+
 [merge]
     keepBackup = false
     tool = p4merge
 
 [merge "gemfilelock"]
-  name = relocks the gemfile.lock
-  driver = bundle install
+    name = relocks the gemfile.lock
+    driver = bundle install
 
 [mergetool]
     prompt = false
