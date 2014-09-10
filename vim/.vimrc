@@ -80,4 +80,6 @@ map ri :InspectVimTmuxRunner
 map rx :CloseVimTmuxPanes
 " Interrupt any command running in the runner pane
 map rs :InterruptVimTmuxRunner
+" Open NERDTree
+map nt :NERDTree
 
