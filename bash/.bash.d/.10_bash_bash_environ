@@ -43,3 +43,9 @@ else \
 fi)'"\n"$IBlack"\t"$Color_Off" \$ "
 
 [ -f "${HOME}/.bash_secrets" ] && . "${HOME}/.bash_secrets"
+
+if [ -n "$TMUX" ]; then
+  . $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+  PATH="$HOME/Library/Python/2.7/bin:$PATH"
+fi
+
