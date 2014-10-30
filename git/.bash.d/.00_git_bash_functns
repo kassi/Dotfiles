@@ -37,7 +37,7 @@ function _git_stashes
 {
     local format="$1"
     if [ -z "$format" ]; then format=" [%s]"; fi
-    local stashes="$(git stash list | grep "WIP on $(__git_branch)" | perl -ne '{m/^stash(\@\{\d+\})/ && push @a, $1} END {print join (" ",@a)}' 2>/dev/null)";
+    local stashes="$(git stash list | egrep "(WIP o|O)n $(__git_branch)" | perl -ne '{m/^stash(\@\{\d+\})/ && push @a, $1} END {print join (" ",@a)}' 2>/dev/null)";
     printf "$format" "$stashes";
 }
 
