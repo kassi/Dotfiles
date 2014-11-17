@@ -8,6 +8,7 @@
 
 *.orig
 *.pyc
+*.swp
 
 package-metadata.json
 rails_best_practices_output.html
