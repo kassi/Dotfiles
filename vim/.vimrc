@@ -2,22 +2,23 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 source $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/plugin/powerline.vim
 
-"colorscheme railscasts
-
-set background=light
 syntax on
-let g:solarized_termcolors=256
-colorscheme solarized
+"colorscheme solarized
+"let g:solarized_termcolors=256
+"colorscheme monokai
+colorscheme railscasts
 
 filetype indent on                  " determine indentation
 filetype plugin on                  " determine file type
 
 set autoindent
 set backspace=indent,eol,start      " allow backspacing over everything in insert mode
+set background=light
 "set cursorline                      " highlight current line
 set encoding=utf-8
 set expandtab                       " Spaces instead of tabs
 set fileencoding=utf-8
+set formatoptions+=t
 set history=1000                    " store lots of :cmdline history
 set hlsearch                        " highlight search results
 set incsearch                       " show search results while searching
@@ -37,9 +38,9 @@ set smartcase                       " case sensitiv. only if search term contain
 set softtabstop=2                   " Amount of columns for backspace
 set tabstop=2                       " A tab is two colums
 set term=xterm-256color
-set textwidth=80
-set formatoptions+=t
-set wrap
+set textwidth=0                     " Turn off physical line wrapping
+set wrap                            " Enable visual wrapping
+set wrapmargin=0                    " Turn off physical line wrapping
 
 if has('autocmd')
   au BufRead,BufNewFile *.md set tw=80
