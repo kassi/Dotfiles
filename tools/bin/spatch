@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# apply a patch to a remote file
+# without having the patch command available on the remote server.
+#
+# Example:
+#
+#   spatch host:/path/to/file -p1 < /local/path/to/patch
+#
+
+# quick check for command line options
+if [ -z "$2" ]; then
+  echo "Usage:" $(basename $0) "<remote:file> -pn < file.diff"
+  exit 1
+fi
+
+# first get the remote file
+# then apply the patch
+# and copy it back
+
+# save stdin
+exec 3<&0
+
+tmp_dir=$(mktemp -d /tmp/spatch.XXXXX)
+cd $tmp_dir
+
+scp $1 $tmp_dir
+patch $2 <&3
+
+if [ "$?" -eq 0 ]; then
+  scp $tmp_dir/$(basename $1) $(dirname $1)
+  rm -rf $tmp_dir
+  echo "OK"
+fi
