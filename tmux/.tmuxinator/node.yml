@@ -1,13 +1,13 @@
-# ~/.tmuxinator/rails.yml
+# ~/.tmuxinator/node.yml
 
-name: rails
+name: node
 root: .
 
 # Optional tmux socket
 # socket_name: foo
 
 # Runs before everything. Use it to start daemons etc.
-pre: sudo /usr/local/mysql/support-files/mysql.server start
+pre: mongod
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
@@ -22,9 +22,9 @@ windows:
   - editor:
       layout: 100a,204x45,0,0[204x42,0,0{102x42,0,0,0,101x42,103,0,2},204x2,0,43,1]
       panes:
-        - bundle exec guard
-        - tail -f log/development.log
+        - grunt
+        - tail -f /usr/local/var/log/mongodb/mongo.log
         -
 
-post: editor 1 e Enter
+post: editor 1 C-c
 post: editor 2 C-c
