@@ -12,9 +12,15 @@
 		},
 		"branch": {
 			"before": " ",
-      "args": {
-        "status_colors": true
-      }
+			"args": {
+				"status_colors": true
+			}
+		},
+		"remote": {
+			"args": {
+				"status_colors": true,
+				"remote_name": false
+			}
 		}
 	},
 	"segments": {
@@ -23,12 +29,9 @@
 				"name": "hostname"
 			},
 			{
-				"name": "user"
-			},
-			{
 				"name": "virtualenv"
 			},
-  		{
+			{
 				"name": "cwd",
 				"args": {
 					"dir_limit_depth": 2
@@ -38,8 +41,8 @@
 				"name": "branch"
 			},
 			{
-				"module": "powerline.segments.shell",
-				"name": "jobnum"
+				"name": "remote",
+				"module": "segments.git"
 			},
 			{
 				"name": "last_status",
