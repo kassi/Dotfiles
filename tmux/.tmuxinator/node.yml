@@ -7,7 +7,7 @@ root: .
 # socket_name: foo
 
 # Runs before everything. Use it to start daemons etc.
-pre: mongod
+# pre: mongod --dbpath /Users/karsten.silkenbaeume/db
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
@@ -20,10 +20,11 @@ pre: mongod
 
 windows:
   - editor:
-      layout: 100a,204x45,0,0[204x42,0,0{102x42,0,0,0,101x42,103,0,2},204x2,0,43,1]
+      layout: be0d,204x73,0,0[204x65,0,0{102x65,0,0[102x32,0,0,10,102x32,0,33,13],101x65,103,0,12},204x7,0,66,11]
       panes:
+        - mongod --dbpath /Users/karsten.silkenbaeume/db
         - grunt
-        - tail -f /usr/local/var/log/mongodb/mongo.log
+        - npm test --watch --reporter list
         -
 
 post: editor 1 C-c
