@@ -1,4 +1,2 @@
 ### Python
-export PYTHONPATH="$HOME/Library/Python/2.7"
-export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-
+export PYTHONPATH=`brew --prefix`/lib/python2.7/site-packages

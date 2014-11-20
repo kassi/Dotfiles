@@ -1,6 +1,6 @@
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
-source $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/plugin/powerline.vim
+source $PYTHONPATH/powerline/bindings/vim/plugin/powerline.vim
 
 syntax on
 "colorscheme solarized

@@ -1,4 +1,4 @@
 if [[ -n "$TMUX" ]]; then
-  source /Users/Kassi/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+  source $PYTHONPATH/powerline/bindings/bash/powerline.sh
 fi
 
