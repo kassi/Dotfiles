@@ -14,8 +14,8 @@
 			}
 		},
 		"shell": {
-			"colorscheme": "default",
-			"theme": "default",
+			"colorscheme": "kassi",
+			"theme": "kassi",
 			"local_themes": {
 				"continuation": "continuation",
 				"select": "select"
@@ -23,7 +23,7 @@
 		},
 		"tmux": {
 			"colorscheme": "default",
-			"theme": "default"
+			"theme": "kassi"
 		},
 		"vim": {
 			"colorscheme": "default",

@@ -1,0 +1,22 @@
+{
+	"name": "Default color scheme for shell prompts",
+	"groups": {
+		"hostname":         { "fg": "brightyellow", "bg": "mediumorange", "attr": [] },
+		"jobnum":           { "fg": "brightyellow", "bg": "mediumorange", "attr": [] },
+		"exit_fail":        { "fg": "white", "bg": "darkestred", "attr": [] },
+		"exit_success":     { "fg": "white", "bg": "darkestgreen", "attr": [] },
+		"environment":      { "fg": "white", "bg": "darkestgreen", "attr": [] },
+		"mode":             { "fg": "darkestgreen", "bg": "brightgreen", "attr": ["bold"] },
+		"attached_clients": { "fg": "white", "bg": "darkestgreen", "attr": [] },
+		"remote":           { "fg": "gray9", "bg": "gray2", "attr": [] },
+		"remote_dirty":     { "fg": "white", "bg": "red", "attr": [] },
+		"remote_clean":     { "fg": "white", "bg": "green", "attr": [] }
+	},
+	"mode_translations": {
+		"vicmd": {
+			"groups": {
+				"mode": {"fg": "darkestcyan", "bg": "white", "attr": ["bold"]}
+			}
+		}
+	}
+}
