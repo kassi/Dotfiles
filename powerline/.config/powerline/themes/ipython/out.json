@@ -11,7 +11,7 @@
 				"highlight_group": ["prompt"]
 			},
 			{
-				"name": "prompt_count",
+				"function": "prompt_count",
 				"module": "powerline.segments.ipython",
 				"draw_soft_divider": false
 			},

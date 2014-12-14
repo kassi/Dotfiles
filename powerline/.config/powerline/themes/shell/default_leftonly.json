@@ -13,12 +13,12 @@
 		"branch": {
 			"before": " ",
 			"args": {
-				"status_colors": true
+				"status_colors": false
 			}
 		},
 		"remote": {
 			"args": {
-				"status_colors": true,
+				"status_colors": false,
 				"remote_name": false
 			}
 		}
@@ -26,27 +26,25 @@
 	"segments": {
 		"left": [
 			{
-				"name": "hostname"
+				"function": "hostname"
 			},
 			{
-				"name": "virtualenv"
+				"function": "virtualenv"
 			},
 			{
-				"name": "cwd",
+				"function": "cwd",
 				"args": {
 					"dir_limit_depth": 2
 				}
 			},
 			{
-				"name": "branch"
+				"function": "branch"
 			},
 			{
-				"name": "remote",
-				"module": "segments.git"
+				"function": "segments.git.remote"
 			},
 			{
-				"name": "last_status",
-				"module": "powerline.segments.shell"
+				"function": "powerline.segments.shell.last_status"
 			}
 		]
 	}

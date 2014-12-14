@@ -3,14 +3,14 @@
 	"segments": {
 		"right": [
 			{
-				"name": "weather",
+				"function": "weather",
 				"priority": 50
 			},
 			{
-				"name": "date"
+				"function": "date"
 			},
 			{
-				"name": "date",
+				"function": "date",
 				"args": {
 					"format": "%H:%M",
 					"istime": true
@@ -18,7 +18,7 @@
 				"before": "⌚ "
 			},
 			{
-				"name": "email_imap_alert",
+				"function": "email_imap_alert",
 				"before": "✉ ",
 				"priority": 10,
 				"args": {
