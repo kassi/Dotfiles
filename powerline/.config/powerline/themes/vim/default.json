@@ -1,19 +1,4 @@
 {
-	"segment_data": {
-		"branch": {
-			"before": " "
-		},
-		"modified_indicator": {
-			"args": { "text": "+" }
-		},
-		"line_percent": {
-			"args": { "gradient": true },
-			"after": "%"
-		},
-		"line_current_symbol": {
-			"contents": " "
-		}
-	},
 	"segments": {
 		"left": [
 			{
@@ -22,12 +7,17 @@
 			},
 			{
 				"function": "visual_range",
-				"exclude_modes": ["nc"],
+				"include_modes": ["v", "V", "^V", "s", "S", "^S"],
 				"priority": 10
 			},
 			{
 				"function": "paste_indicator",
 				"exclude_modes": ["nc"],
+				"priority": 10
+			},
+			{
+				"function": "powerline.segments.vim.plugin.capslock.capslock_indicator",
+				"include_modes": ["i", "R", "Rv"],
 				"priority": 10
 			},
 			{
@@ -39,6 +29,10 @@
 				"function": "readonly_indicator",
 				"draw_soft_divider": false,
 				"after": " "
+			},
+			{
+				"function": "file_scheme",
+				"priority": 20
 			},
 			{
 				"function": "file_directory",
@@ -59,15 +53,19 @@
 				"before": " "
 			},
 			{
+				"exclude_modes": ["i", "R", "Rv"],
+				"function": "trailing_whitespace",
+				"display": false,
+				"priority": 60
+			},
+			{
 				"exclude_modes": ["nc"],
-				"module": "powerline.segments.plugin.syntastic",
-				"function": "syntastic",
+				"function": "powerline.segments.vim.plugin.syntastic.syntastic",
 				"priority": 50
 			},
 			{
 				"exclude_modes": ["nc"],
-				"module": "powerline.segments.plugin.tagbar",
-				"function": "current_tag",
+				"function": "powerline.segments.vim.plugin.tagbar.current_tag",
 				"draw_soft_divider": false,
 				"priority": 50
 			},
@@ -103,8 +101,12 @@
 				"align": "r"
 			},
 			{
+				"function": "csv_col_current",
+				"priority": 30
+			},
+			{
 				"type": "string",
-				"function": "line_current_symbol",
+				"name": "line_current_symbol",
 				"highlight_group": ["line_current_symbol", "line_current"]
 			},
 			{
