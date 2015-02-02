@@ -52,7 +52,7 @@ endif
 if &term =~ "xterm.*"
     let &t_ti = &t_ti . "\e[?2004h"
     let &t_te = "\e[?2004l" . &t_te
-    function XTermPasteBegin(ret)
+    function! XTermPasteBegin(ret)
         set pastetoggle=<Esc>[201~
         set paste
         return a:ret
@@ -83,10 +83,11 @@ map ri :InspectVimTmuxRunner
 map rx :CloseVimTmuxPanes
 " Interrupt any command running in the runner pane
 map rs :InterruptVimTmuxRunner
-" Open NERDTree
+
+" NERDTree
 map nt :NERDTree<CR>
-" Toggle NERDTree
 map kb :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>
