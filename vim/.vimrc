@@ -1,19 +1,21 @@
-runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
-source $PYTHONPATH/powerline/bindings/vim/plugin/powerline.vim
 
 syntax on
+"colorscheme phix
+"colorscheme railscasts
+
+"set background=dark
 "colorscheme solarized
 "let g:solarized_termcolors=256
-"colorscheme monokai
 colorscheme railscasts
 
 filetype indent on                  " determine indentation
 filetype plugin on                  " determine file type
 
+source $PYTHONPATH/powerline/bindings/vim/plugin/powerline.vim
+
 set autoindent
 set backspace=indent,eol,start      " allow backspacing over everything in insert mode
-set background=light
 "set cursorline                      " highlight current line
 set encoding=utf-8
 set expandtab                       " Spaces instead of tabs
@@ -82,7 +84,9 @@ map rx :CloseVimTmuxPanes
 " Interrupt any command running in the runner pane
 map rs :InterruptVimTmuxRunner
 " Open NERDTree
-map nt :NERDTree
+map nt :NERDTree<CR>
+" Toggle NERDTree
+map kb :NERDTreeToggle<CR>
 
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>
