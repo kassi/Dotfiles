@@ -55,15 +55,16 @@
 	path = 
 
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
 
 [gist]
     browse = yes
     private = yes
 
 [github]
-    password = !security find-internet-password -a kassi -s github.com -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
+#    password = !security find-internet-password -a kassi -s github.com -g 2>&1 1>/dev/null | ruby -e 'print $1 if STDIN.gets =~ /^password: \\\"(.*)\\\"$/'
 
 [include]
     path = .gitconfig.private

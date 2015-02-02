@@ -23,6 +23,18 @@
 		}
 	},
 	"segments": {
+    "above": [
+      {
+        "left": [
+          {
+            "function": "segments.git.oh_my_git"
+          },
+          {
+            "function": "segments.git.oh_my_git_remote"
+          }
+        ]
+      }
+    ],
 		"left": [
 			{
 				"function": "powerline.segments.shell.mode"

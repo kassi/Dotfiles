@@ -1,8 +1,9 @@
 # encoding: utf-8
 import re
-from powerline.theme import requires_segment_info
+from powerline.segments import Segment, with_docstring
+from powerline.theme import requires_segment_info, requires_filesystem_watcher
 from powerline.lib.shell import run_cmd
-
+from powerline.lib.vcs import guess, tree_status
 from subprocess import Popen, PIPE
 try:
     from subprocess import DEVNULL # py3k
@@ -55,3 +56,41 @@ def remote(pl, segment_info, status_colors=False, remote_name=True):
             'contents': ' '.join(result),
             'highlight_group': hgroup,
         }]
+
+@requires_filesystem_watcher
+@requires_segment_info
+class OhMyGitSegment(Segment):
+    #def oh_my_git(pl, segment_info):
+    '''Integration of https://github.com/arialdomartini/oh-my-git
+    '''
+    @staticmethod
+    def get_directory(segment_info):
+      return segment_info['getcwd']()
+
+    def __call__(self, pl, segment_info, create_watcher, status_colors=False, ignore_statuses=()):
+      name = self.get_directory(segment_info)
+      if name:
+        repo = guess(path=name, create_watcher=create_watcher)
+        if repo is not None:
+          branch = repo.branch()
+          return [{
+            'contents': branch,
+            'highlight_group': ['ohmygit']
+          }]
+
+oh_my_git = with_docstring(OhMyGitSegment(),
+'''Return the oh_my_git status bar
+''')
+
+@requires_segment_info
+def oh_my_git_remote(pl, segment_info, status_colors=False):
+    '''Integration of remote part of https://github.com/arialdomartini/oh-my-git
+    '''
+    if True:
+      return
+    return [{
+        'contents': '',
+        'highlight_group': ['ohmygit_remote']
+    }]
+
+
