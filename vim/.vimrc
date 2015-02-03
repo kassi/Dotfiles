@@ -46,6 +46,7 @@ set wrapmargin=0                    " Turn off physical line wrapping
 
 if has('autocmd')
   au BufRead,BufNewFile *.md set tw=80
+  au BufAdd,BufNewFile * nested tab sball
 endif
 
 " paste mode auto detection
