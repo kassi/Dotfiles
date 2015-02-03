@@ -85,9 +85,13 @@ map rx :CloseVimTmuxPanes
 map rs :InterruptVimTmuxRunner
 
 " NERDTree
-map nt :NERDTree<CR>
-map kb :NERDTreeToggle<CR>
+map nt :NERDTreeToggle<CR>
+map nf :NERDTreeFocus<CR>
+map nr :NERDTreeRestoreFocus<CR>
+map nu :NERDTreeUnfocus<CR>
 let NERDTreeShowHidden=1
+map ä :tabnext<CR>
+map ö :tabprev<CR>
 
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>

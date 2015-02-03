@@ -49,3 +49,12 @@
 [submodule "vim/.vim/bundle/vim-colorschemes"]
 	path = vim/.vim/bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule "vim/.vim/bundle/vim-nerdtree-tabs"]
+	path = vim/.vim/bundle/vim-nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "vim/.vim/bundle/vim-nerdtree-direnter"]
+	path = vim/.vim/bundle/vim-nerdtree-direnter
+	url = https://github.com/Nopik/vim-nerdtree-direnter
+[submodule "vim/.vim/bundle/vim-nerdtree-unfocus"]
+	path = vim/.vim/bundle/vim-nerdtree-unfocus
+	url = https://github.com/baopham/vim-nerdtree-unfocus.git
