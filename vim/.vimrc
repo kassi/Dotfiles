@@ -74,6 +74,9 @@ endif
 let mapleader = ","
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
+" CtrlP
+let g:ctrlp_show_hidden = 1
+
 " Prompt for a command to run
 map rp :PromptVimTmuxCommand
 " Run last command executed by RunVimTmuxCommand
@@ -84,6 +87,9 @@ map ri :InspectVimTmuxRunner
 map rx :CloseVimTmuxPanes
 " Interrupt any command running in the runner pane
 map rs :InterruptVimTmuxRunner
+
+" VIM Session
+let g:session_autosave = 'no'
 
 " NERDTree
 map nt :NERDTreeToggle<CR>
