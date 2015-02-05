@@ -4,5 +4,5 @@ alias bo='bundle open'
 alias g='bundle exec guard'
 alias rake='bundle exec rake'
 alias sake='bundle exec spring rake'
-alias srails='spring rails'
+alias sails='spring rails'
 
