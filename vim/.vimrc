@@ -46,7 +46,7 @@ set wrapmargin=0                    " Turn off physical line wrapping
 
 if has('autocmd')
   au BufRead,BufNewFile *.md set tw=80
-  au BufAdd,BufNewFile * nested tab sball
+"  au BufAdd,BufNewFile * nested tab sball
 endif
 
 " paste mode auto detection
@@ -74,6 +74,9 @@ endif
 let mapleader = ","
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
+map ä :tabnext<CR>
+map ö :tabprev<CR>
+
 " CtrlP
 let g:ctrlp_show_hidden = 1
 
@@ -98,8 +101,10 @@ map nf :NERDTreeFocus<CR>
 map nr :NERDTreeRestoreFocus<CR>
 map nu :NERDTreeUnfocus<CR>
 let NERDTreeShowHidden=1
-map ä :tabnext<CR>
-map ö :tabprev<CR>
+
+" NERDTreeTabs
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
+let g:nerdtree_tabs_open_on_console_startup=1
 
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>
@@ -120,4 +125,5 @@ endfunction
 
 " Automatic Mapping with pipe
 inoremap <silent> <Bar> <Bar><Esc>:call <SID>align()<CR>a
+
 
