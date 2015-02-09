@@ -10,29 +10,33 @@
           "before": "🔋  "
         }
     },
-	"segments": {
-		"right": [
-			{
-				"function": "powerline.segments.common.sys.system_load",
-				"priority": 50
-			},
-      {
-        "function": "powerline.segments.common.battery"
-      },
-			{
-				"function": "powerline.segments.common.time.date"
-			},
-			{
-				"function": "powerline.segments.common.time.date",
-				"name": "time",
-				"args": {
-					"format": "%H:%M",
-					"istime": true
-				}
-			},
-			{
-				"function": "powerline.segments.common.net.hostname"
-			}
-		]
-	}
+    "segments": {
+        "right": [
+            {
+                "function": "powerline.segments.common.sys.system_load",
+                "priority": 50
+            },
+            {
+                "function": "powerline.segments.common.battery"
+            },
+            {
+                "function": "powerline.segments.common.time.date",
+                "name": "date",
+                "args": {
+                    "format": "%d.%m.%Y"
+                }
+            },
+            {
+                "function": "powerline.segments.common.time.date",
+                "name": "time",
+                "args": {
+                    "format": "%H:%M",
+                    "istime": true
+                }
+            },
+            {
+                "function": "powerline.segments.common.net.hostname"
+            }
+        ]
+    }
 }
