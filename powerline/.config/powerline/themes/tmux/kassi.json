@@ -4,7 +4,10 @@
             "before": "⇑  "
         },
         "date": {
-            "before": "⌚ "
+            "before": "📆  "
+        },
+        "time": {
+            "before": "⌚  "
         },
         "battery": {
           "before": "🔋  "
