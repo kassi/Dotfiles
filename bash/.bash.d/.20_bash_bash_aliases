@@ -1,1 +1,3 @@
 alias SD='cd ~/System/Dotfiles'
+alias ip='curl http://ipv4.icanhazip.com'
+
