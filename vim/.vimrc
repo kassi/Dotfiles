@@ -45,6 +45,10 @@ set wrap                            " Enable visual wrapping
 set wrapmargin=0                    " Turn off physical line wrapping
 
 if has('autocmd')
+  augroup MyAutoCmd
+    autocmd!
+    autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC
+  augroup END
   au BufRead,BufNewFile *.md set tw=80
 "  au BufAdd,BufNewFile * nested tab sball
 endif
@@ -68,9 +72,6 @@ endif
 set rtp+={repository_root}/powerline/bindings/vim
 
 " VIM config
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-endif
 let mapleader = ","
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
