@@ -50,7 +50,7 @@ if has('autocmd')
     autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC
   augroup END
   au BufRead,BufNewFile *.md set tw=80
-"  au BufAdd,BufNewFile * nested tab sball
+  au BufRead,BufNewFile *.pro set filetype=prolog
 endif
 
 " paste mode auto detection
@@ -67,9 +67,6 @@ if &term =~ "xterm.*"
     cmap <Esc>[200~ <nop>
     cmap <Esc>[201~ <nop>
 endif
-
-" powerline
-set rtp+={repository_root}/powerline/bindings/vim
 
 " VIM config
 let mapleader = ","
@@ -123,7 +120,6 @@ function! s:align()
    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
  endif
 endfunction
-
 " Automatic Mapping with pipe
 inoremap <silent> <Bar> <Bar><Esc>:call <SID>align()<CR>a
 
