@@ -1,3 +1,18 @@
 function eval_timetracking {
   perl -ne 'BEGIN {%s=()} @a=split(";");$x=$a[4];$x=~s/,/./g;if($x == 0 || $a[6] eq "") {next};$s{$a[6]}+=$x; END {foreach $k(keys %s){printf "%12s: %.2f\n", $k, $s{$k}}}'
 }
+
+function prolog {
+  file="$1"
+  if [[ -z "$file" ]]; then
+    line=$(head -n 1 "$file")
+  fi
+  if [[ "$line" =~ %.gprolog ]]; then
+    gprolog --consult-file "$file"
+  elif [[ "$line" =~ %.bp ]]; then
+    bp -g "['$file']"
+  else
+    swipl -f "'$file'"
+  fi
+}
+
