@@ -126,4 +126,12 @@ endfunction
 " Automatic Mapping with pipe
 inoremap <silent> <Bar> <Bar><Esc>:call <SID>align()<CR>a
 
+" Tslime
+" vmap <C-c><C-c> <Plug>SendSelectionToTmux
+" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+" nmap <C-c>r <Plug>SetTmuxVars
+
+" Powerline
+set rtp+={repository_root}/powerline/bindings/vim
+
 
