@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby -n
+if m = $_.match(/<a href=3D"(https?:\/\/[^"]+)(=\r|")/)
+  gets.match(/^([^"]+)"/)
+  url = m[1] + $1
+  puts url.gsub('=3D','=')
+end

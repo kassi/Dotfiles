@@ -1,8 +1,9 @@
 # Rails
+alias b='bundle'
 alias be='bundle exec'
 alias bo='bundle open'
 alias g='bundle exec guard'
-alias rr='bin/rails'
+alias rr='bundle exec rake routes'
 alias rake='bundle exec rake'
 alias sake='bundle exec spring rake'
 alias sails='spring rails'
