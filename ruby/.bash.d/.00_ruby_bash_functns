@@ -8,3 +8,7 @@ function commit_update {
     echo "No version found."
   fi
 }
+
+function rubydoc {
+  open -a "Google Chrome" http://www.rubydoc.info/gems/$1/
+}
