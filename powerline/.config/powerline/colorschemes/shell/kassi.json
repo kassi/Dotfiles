@@ -1,5 +1,5 @@
 {
-	"name": "Default color scheme for shell prompts",
+	"name": "Kassi's color scheme for shell prompts",
 	"groups": {
 		"hostname":         { "fg": "brightyellow", "bg": "mediumorange", "attr": [] },
 		"jobnum":           { "fg": "brightyellow", "bg": "mediumorange", "attr": [] },
