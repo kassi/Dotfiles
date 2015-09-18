@@ -1,0 +1,15 @@
+#!/bin/sh
+BPDIR=/Applications/Developer/Prolog/BProlog
+PAREA=2000000	# Size of program area
+STACK=2000000	# Size of control stack and heap
+TRAIL=2000000	# Size of trail stack
+TABLE=1000000	# Size of table area
+
+if [[ "$1" =~ ".pro" ]]; then
+  CONSULT="\"['$1']\""
+  echo $CONSULT
+  exec $BPDIR/Emulator/bprolog -p $PAREA -s $STACK -b $TRAIL -t $TABLE $BPDIR/bp.out -g $CONSULT ${1+"$@"}
+else
+  exec $BPDIR/Emulator/bprolog -p $PAREA -s $STACK -b $TRAIL -t $TABLE $BPDIR/bp.out ${1+"$@"}
+fi
+
