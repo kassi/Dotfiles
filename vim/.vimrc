@@ -16,6 +16,7 @@ source $PYTHONPATH/powerline/bindings/vim/plugin/powerline.vim
 
 set autoindent
 set backspace=indent,eol,start      " allow backspacing over everything in insert mode
+set clipboard=unnamed
 "set cursorline                      " highlight current line
 set encoding=utf-8
 set expandtab                       " Spaces instead of tabs
