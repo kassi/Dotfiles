@@ -16,7 +16,7 @@ export EDITOR=edit
 export BUNDLER_EDITOR="subl"
 export HISTSIZE=10000
 
-export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/python:$PATH
+export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # Riak
 # ulimit -n 1024
