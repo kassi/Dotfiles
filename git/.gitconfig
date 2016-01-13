@@ -9,6 +9,9 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lm = log master.. --no-merges
 
+    # http://codesthq.com/blog/2015/maintaining-database-structure-and-working-on-multiple-branches.html
+    migrations = "!f() { git diff --name-only $1..$2 db/migrate | tr -d '[A-Za-z/_.]'; }; f"
+
     open-diff = !"subl -a $(git diff --name-only master..)"
     open-modified = !"subl -a $(git status --porcelain | perl -ne 'm/( M|\\?\\?)\\s+(.+)/ and print qq/$2\n/')"
     sha = !"git show --oneline --no-abbrev-commit | awk '{print $1; exit}'"
@@ -53,7 +56,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [filter "media"]
 	clean = git media clean %f
