@@ -11,6 +11,7 @@
 
     # http://codesthq.com/blog/2015/maintaining-database-structure-and-working-on-multiple-branches.html
     migrations = "!f() { git diff --name-only $1..$2 db/migrate | tr -d '[A-Za-z/_.]'; }; f"
+    branch-rollback = "!f() { rake db:rollback STEP=$(git diff --name-only master.. db/migrate | wc -l | awk '{print $1}'); }; f"
 
     open-diff = !"subl -a $(git diff --name-only master..)"
     open-modified = !"subl -a $(git status --porcelain | perl -ne 'm/( M|\\?\\?)\\s+(.+)/ and print qq/$2\n/')"
