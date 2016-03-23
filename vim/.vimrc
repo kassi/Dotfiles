@@ -27,7 +27,7 @@ set hlsearch                        " highlight search results
 set incsearch                       " show search results while searching
 set laststatus=2                    " Always display the statusline in all windows
 set listchars=tab:▷⋅,trail:⋅,nbsp:⋅ " Highlight trailing spaces
-set nocompatible                    " ???
+set nocompatible                    " do not use vim in vi compatible mode
 set noshowmode                      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set mouse=a ttymouse=xterm2         " enable the use of the mouse in terminals
 set number                          " show line numbers
@@ -79,17 +79,6 @@ map ö :tabprev<CR>
 " CtrlP
 let g:ctrlp_show_hidden = 1
 
-" Prompt for a command to run
-map rp :PromptVimTmuxCommand
-" Run last command executed by RunVimTmuxCommand
-map rl :RunLastVimTmuxCommand
-" Inspect runner pane
-map ri :InspectVimTmuxRunner
-" Close all other tmux panes in current window
-map rx :CloseVimTmuxPanes
-" Interrupt any command running in the runner pane
-map rs :InterruptVimTmuxRunner
-
 " VIM Session
 let g:session_autoload = 'no'
 let g:session_autosave = 'no'
@@ -97,8 +86,6 @@ let g:session_autosave = 'no'
 " NERDTree
 map nt :NERDTreeToggle<CR>
 map nf :NERDTreeFocus<CR>
-map nr :NERDTreeRestoreFocus<CR>
-map nu :NERDTreeUnfocus<CR>
 let NERDTreeShowHidden=1
 
 " NERDTreeTabs
@@ -128,6 +115,9 @@ inoremap <silent> <Bar> <Bar><Esc>:call <SID>align()<CR>a
 " vmap <C-c><C-c> <Plug>SendSelectionToTmux
 " nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 " nmap <C-c>r <Plug>SetTmuxVars
+
+" Vimux
+nmap <Leader>m :call VimuxRunCommand("c(recur). c(recur_tests). eunit:test(recur).")<CR>
 
 " Powerline
 set rtp+={repository_root}/powerline/bindings/vim
