@@ -2,9 +2,8 @@
 alias b='bundle'
 alias be='bundle exec'
 alias bo='bundle open'
+alias br='bin/rails'
 alias g='bundle exec guard'
 alias rr='bundle exec rake routes'
-alias rake='bundle exec rake'
-alias sake='bundle exec spring rake'
-alias sails='spring rails'
-
+alias rake='bin/rake'
+alias rdbm='rake db:migrate && rake db:migrate RAILS_ENV=test'
