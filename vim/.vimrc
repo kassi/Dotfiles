@@ -70,7 +70,7 @@ if &term =~ "xterm.*"
 endif
 
 " VIM config
-let mapleader = ","
+let mapleader = "\t"
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
 map ä :tabnext<CR>
