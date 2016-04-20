@@ -1,0 +1,16 @@
+#!/bin/bash
+set -x
+if [[ "$1" == "--all" ]]; then
+  gems=$(bundle outdated | grep '  * ' | awk '{print $2}')
+else
+  gems="$1"
+fi
+
+for gem in $gems; do
+  bundle update $gem
+  version=$(bundle list $gem | ruby -ne "puts \$_.match(/$gem-(.*)/)[1]")
+  if [[ $(git diff) ]]; then
+    rake && rubocop --rails --require rubocop-rspec && git commit -am "Update $gem to $version"
+    git checkout .
+  fi
+done
