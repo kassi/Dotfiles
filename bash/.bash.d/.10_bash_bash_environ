@@ -14,6 +14,7 @@ PATH=${MYSQL_HOME}:$PATH
 # Standard environment variables
 export EDITOR=edit
 export BUNDLER_EDITOR="subl"
+export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 
 export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
