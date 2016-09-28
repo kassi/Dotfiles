@@ -16,3 +16,6 @@ function prolog {
   fi
 }
 
+function forget_host {
+  sed -i .old "$1d" ~/.ssh/known_hosts
+}
