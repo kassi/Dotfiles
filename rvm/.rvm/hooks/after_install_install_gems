@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 gems=(
   bundler
+  cheatset
   cocoapods
   highline
 )
