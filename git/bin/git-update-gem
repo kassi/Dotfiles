@@ -1,7 +1,7 @@
 #!/bin/bash
 tempfile="/tmp/$(basename $0).$$.tmp"
 
-git diff master Gemfile.lock | awk -F '[ ()]+' 'match($0,/^\+ +[^ ]+ +\([0-9].+\)/) {print "Update "$2" to "$3}' > $tempfile
+git diff HEAD Gemfile.lock | awk -F '[ ()]+' 'match($0,/^\+ +[^ ]+ +\([0-9].+\)/) {print "Update "$2" to "$3}' > $tempfile
 
 if [ $(wc -l $tempfile | awk '{print $1}') == "1" ]; then
   git commit -a -F $tempfile
