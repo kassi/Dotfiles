@@ -52,6 +52,7 @@ if has('autocmd')
   augroup END
   au BufRead,BufNewFile *.md set tw=80
   au BufRead,BufNewFile *.pro set filetype=prolog
+  au filetype crontab setlocal nobackup nowritebackup
 endif
 
 " paste mode auto detection
