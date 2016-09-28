@@ -112,13 +112,13 @@ endfunction
 " Automatic Mapping with pipe
 inoremap <silent> <Bar> <Bar><Esc>:call <SID>align()<CR>a
 
-" Tslime
-" vmap <C-c><C-c> <Plug>SendSelectionToTmux
-" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-" nmap <C-c>r <Plug>SetTmuxVars
-
-" Vimux
-nmap <Leader>m :call VimuxRunCommand("c(recur). c(recur_tests). eunit:test(recur).")<CR>
+" Tmux Runner
+let g:vtr_filetype_runner_overrides = { 'sh': 'bash {file}' }
+map tap :VtrAttachToPane<CR>
+map tcr :VtrClearRunner<CR>
+map tsc :VtrSendCommandToRunner<CR>
+map tsf :VtrSendFile<CR>
+map mm :VtrSendFile<CR>
 
 " Powerline
 set rtp+={repository_root}/powerline/bindings/vim
