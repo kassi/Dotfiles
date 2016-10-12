@@ -1,2 +1,1 @@
 alias airportcycle='networksetup -setairportpower airport off; networksetup -setairportpower airport on'
-alias sysupdate="brew update && brew outdated && brew upgrade --all && pip list | cut -d ' ' -f 1 | xargs pip install --upgrade"
