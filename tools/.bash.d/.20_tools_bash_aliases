@@ -1,4 +1,5 @@
 # Tools
-alias s=/usr/local/bin/subl
+alias m="PYTHONPATH=/usr/local/lib/python2.7/site-packages mine"
+alias s="/usr/local/bin/subl"
 alias sn="/usr/local/bin/subl -n"
-alias st='open -a SourceTree'
+alias st="open -a SourceTree"
