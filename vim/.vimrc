@@ -119,6 +119,7 @@ map tcr :VtrClearRunner<CR>
 map tsc :VtrSendCommandToRunner<CR>
 map tsf :VtrSendFile<CR>
 map mm :VtrSendFile<CR>
+map <CR> :VtrSendFile<CR>
 
 " Powerline
 set rtp+={repository_root}/powerline/bindings/vim
