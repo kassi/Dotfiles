@@ -19,3 +19,7 @@ function prolog {
 function forget_host {
   sed -i .old "$1d" ~/.ssh/known_hosts
 }
+
+function racoonupdate {
+  sudo sed -i.old "s/local_address .*;/local_address $(ifconfig en0 | grep 'inet ' | cut -d ' ' -f 2);/" /etc/racoon/213.198.82.174.conf
+}
