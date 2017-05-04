@@ -1,11 +1,27 @@
+#/bin/bash
 set -e
 
 brew update -v
 brew outdated
 set +e
 brew upgrade
+brew cleanup
 set -e
-pip list | cut -d ' ' -f 1 | xargs pip install --upgrade
+pip3 list | cut -d ' ' -f 1 | xargs pip3 install --upgrade
 
-rvm get stable
+rvm version | grep latest && echo "rvm seems to be up to date" || rvm get stable
 
+ruby -e ' \
+  known=`rvm list known_strings | grep ^ruby-[[:digit:]]`.split;
+  inst=`rvm list | grep ruby- | cut -d " " -f 2`.split;
+  newer=[]
+  known.each do |v|
+    if inst.none? { |i| i >= v }
+      newer << v
+    end
+  end
+  if newer.any?
+    puts "New rubies available:"
+    puts newer
+  end
+'
