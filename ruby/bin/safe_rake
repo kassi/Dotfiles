@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -x bin/rake ]; then
+  bin/rake "$@"
+elif [ -f Gemfile -o -d .bundle ]; then
+  bundle exec rake "$@"
+else
+  \rake "$@"
+fi
