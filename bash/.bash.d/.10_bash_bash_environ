@@ -17,6 +17,9 @@ export BUNDLER_EDITOR="subl"
 export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+
 export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # Riak
