@@ -226,10 +226,8 @@ setup_destination () {
     fi
   else
     cd "$DESTINATION_DIR"
-    if [[ -z $dry ]]; then
-      git clone $repo
-      success "cloned repository"
-    fi
+    git clone $repo
+    success "cloned repository"
   fi
 }
 
