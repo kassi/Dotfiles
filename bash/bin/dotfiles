@@ -2,6 +2,8 @@
 #
 # Bootstrapper for installation
 # A lot of functionality taken from https://github.com/holman/dotfiles/blob/master/script/bootstrap
+
+set -e
 #
 # Defaults
 path="System"
