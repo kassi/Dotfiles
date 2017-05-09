@@ -1,5 +1,5 @@
 if [[ -n "$TMUX" ]]; then
-  source $PYTHONPATH/powerline/bindings/bash/powerline.sh
+  source $POWERLINE_BINDINGS_PATH/bash/powerline.sh
 fi
 
 # This should always be run last either in .bashrc or as a script in .bashrc.d

@@ -12,7 +12,7 @@ colorscheme railscasts
 filetype indent on                  " determine indentation
 filetype plugin on                  " determine file type
 
-source $PYTHONPATH/powerline/bindings/vim/plugin/powerline.vim
+source $POWERLINE_BINDINGS_PATH/vim/plugin/powerline.vim
 
 set autoindent
 set backspace=indent,eol,start      " allow backspacing over everything in insert mode
