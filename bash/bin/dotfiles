@@ -299,9 +299,11 @@ install_individual_files () {
     case "$answer" in
       y)
         info "Running $script"
-        pushd .
-        source $script
-        popd
+        if [[ -z $dry ]]; then
+          pushd .
+          source $script
+          popd
+        fi
         ;;
     esac
   done
