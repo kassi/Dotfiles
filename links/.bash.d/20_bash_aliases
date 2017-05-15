@@ -11,6 +11,7 @@ alias SD='cd ~/System/Dotfiles'
 alias ip='curl http://ipv4.icanhazip.com'
 alias opdone='say -v Zarvox "Operation finished"'
 alias beep='afplay ~/Music/Sounds/beep-30b.wav >/dev/null 2>&1'
+alias s='/usr/local/bin/subl'
 alias st='/Applications/SourceTree.app/Contents/Resources/stree'
 
 # Git
