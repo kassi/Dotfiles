@@ -224,7 +224,7 @@ install_brewfiles () {
   file="$1"
   if [[ -e "$repo_destination_path/$file" ]]; then
     user "Continue with bundling $file? [y]es or [n]o?"
-    read -n 1 answer
+    read -n 1 answer < /dev/tty
     echo
     case "$answer" in
       y)
@@ -240,7 +240,7 @@ install_individual_files () {
   contains_element "installer" "${actions[@]}" || return 0
   for script in $(find "$repo_destination_path" -type f -name '*install.sh' | sort -t '/' -k 3); do
     user "Continue with installing $script? [y]es or [n]o?"
-    read -n 1 answer
+    read -n 1 answer < /dev/tty
     echo
     case "$answer" in
       y)
@@ -313,9 +313,9 @@ create_link() {
         ls -ld $source_file
         ls -ld $destination
         user "What do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -n 1 actions
+        read -n 1 answer < /dev/tty
 
-        case "$actions" in
+        case "$answer" in
           o )
             overwrite=true;;
           O )
