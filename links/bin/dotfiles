@@ -8,6 +8,7 @@ path="System"
 repos=
 # config
 declare -a config_repos
+declare -a new_repos
 config_path="$HOME/.config"
 config_file="$config_path/dotfiles"
 config_destination_dir=
@@ -200,24 +201,12 @@ setup_destination () {
     git clone $repo_url
     success "cloned repository"
   fi
-  if ( ! contains_element "$repo_name" "${config_repos[@]}" ); then
-    config_repos+="$repo_url"
+  if ( ! contains_element "$repo_name" "${new_repos[@]}" ); then
+    new_repos+=("$repo_name")
   fi
   printf -v "config_${repo_name}_url" %s "$repo_url"
   printf -v "config_${repo_name}_path" %s "$repo_destination_path"
   # write config
-  [[ -d $config_path ]] || mkdir $config_path
-  info "Writing config..."
-  echo "# dotfiles config" > $config_file
-  echo "config_repos=(${config_repos[@]})" >> $config_file
-  echo "config_destination_dir=$config_destination_dir" >> $config_file
-  echo "#" >> $config_file
-  for config_repo in $config_repos; do
-    _url_var="config_${config_repo}_url"
-    _path_var="config_${config_repo}_path"
-    echo "config_${config_repo}_url="${!_url_var} >> $config_file
-    echo "config_${config_repo}_path="${!_path_var} >> $config_file
-  done
 }
 
 install_brewfiles () {
@@ -416,6 +405,21 @@ action_cleanup() {
   done < <(find $HOME -maxdepth 5 $(for i in ${prune[@]}; do echo "-path '*/$i/*' -prune -o"; done) -lname $repo_destination_path'/*' -print0 -o -lname $path/$repo_name'/*' -print0)
 }
 
+write_config() {
+  [[ -d $config_path ]] || mkdir $config_path
+  info "Writing config..."
+  echo "# dotfiles config" > $config_file
+  echo "config_repos=(${new_repos[@]})" >> $config_file
+  echo "config_destination_dir=$config_destination_dir" >> $config_file
+  echo "#" >> $config_file
+  for config_repo in $new_repos; do
+    _url_var="config_${config_repo}_url"
+    _path_var="config_${config_repo}_path"
+    echo "config_${config_repo}_url="${!_url_var} >> $config_file
+    echo "config_${config_repo}_path="${!_path_var} >> $config_file
+  done
+}
+
 main() {
   local repo="$1"
   local repo_name="$(basename "$repo" .git)"
@@ -444,3 +448,4 @@ parse_params "$@"
 for repo in $repos; do
   main "$repo"
 done
+write_config
