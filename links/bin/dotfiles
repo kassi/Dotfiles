@@ -66,13 +66,23 @@ usage() {
 EOF
 }
 
-# set -e
-
 note() { printf "\033[00;36m$1\033[0m "; shift; printf "$*\n"; }
 info() { printf "  [ \033[00;34m..\033[0m ] $*\n"; }
 user() { printf "\r  [ \033[0;33m?\033[0m ] $* "; }
 fail() { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $*\n"; exit 1; }
 success() { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $*\n"; }
+
+contains_element() {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+matches_element() {
+  local e
+  for e in "${@:2}"; do [[ "$1" =~ ^$e/ ]] && return 0; done
+  return 1
+}
 
 write_config() {
   [[ -d $config_path ]] || mkdir $config_path
@@ -167,23 +177,6 @@ parse_params() {
   note "Actions:     " ${actions[@]}
 }
 
-## @fn contains_element
-# Checks whether a particular element is contained in the given list.
-# @param elem The element to search for
-# @param list The list to look into
-# @return 0 or 1
-contains_element() {
-  local e
-  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
-  return 1
-}
-
-matches_element() {
-  local e
-  for e in "${@:2}"; do [[ "$1" =~ ^$e/ ]] && return 0; done
-  return 1
-}
-
 setup_destination () {
   local repo_url="$1"
   local repo_name="$2"
@@ -227,38 +220,21 @@ setup_destination () {
   printf -v "config_${repo_name}_path" %s "$repo_destination_path"
 }
 
-install_brewfiles () {
-  file="$1"
-  if [[ -e "$repo_destination_path/$file" ]]; then
-    user "Continue with bundling $file? [y]es or [n]o?"
-    read -n 1 answer < /dev/tty
-    echo
-    case "$answer" in
-      y)
-        info "Bundling $file"
-        brew bundle "$repo_destination_path/$file"
-        success "bundled $file"
-        ;;
-    esac
-  fi
-}
+run_scripts () {
+  local repo_destination_path="$1"
+  local overwrite_all=false backup_all=false skip_all=false
+  declare -a linked_paths=()
 
-install_individual_files () {
-  contains_element "installer" "${actions[@]}" || return 0
-  for script in $(find "$repo_destination_path" -type f -name '*install.sh' | sort -t '/' -k 3); do
-    user "Continue with installing $script? [y]es or [n]o?"
-    read -n 1 answer < /dev/tty
-    echo
-    case "$answer" in
-      y)
-        info "Running $script"
-        if [[ -z $dry_run ]]; then
-          pushd .
-          source $script
-          popd
-        fi
-        ;;
-    esac
+  [[ -n $verbose ]] && info "Running scripts..."
+
+  for script in $(find "$repo_destination_path/scripts" -type f -name '*.sh' | sort); do
+    if [[ -n $dry_run ]]; then
+      info "Dry: Run '$script'"
+    else
+      pushd .
+      source $script
+      popd
+    fi
   done
 }
 
@@ -399,6 +375,7 @@ action_install() {
   info "Processing action: update..."
   create_directories "$repo_destination_path"
   create_links "$repo_destination_path"
+  run_scripts "$repo_destination_path"
 }
 
 action_cleanup() {

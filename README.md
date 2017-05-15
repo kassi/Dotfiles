@@ -18,6 +18,7 @@ On an `install` or `update`
         * If they are linked (already), they will be skipped
         * Otherwise the directory will be linked
     * During processing paths are processed in sequence
+* any shell script in `scripts` is run
 
 Example:
 
