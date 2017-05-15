@@ -1,0 +1,445 @@
+#!/usr/bin/env bash
+#
+# Bootstrapper for installation
+# A lot of functionality taken from https://github.com/holman/dotfiles/blob/master/script/bootstrap
+#
+# Defaults
+path="System"
+repos=
+# config
+declare -a config_repos
+config_path="$HOME/.config"
+config_file="$config_path/dotfiles"
+config_destination_dir=
+[[ -f $config_file ]] && source $config_file
+# actions and flags
+declare -a actions=()
+dry_run=
+verbose=
+
+usage() {
+  cat <<-EOF | sed 's/^    //'
+    Usage
+
+      dotfiles [options] <action> [...]
+
+    or remotely
+
+      curl -fsSL https://raw.github.com/kassi/Dotfiles/master/bash/bin/dotfiles | bash -s [options] [actions]
+
+    Options
+
+      --path <path>
+
+        The destination path relativ to the home directory where the repo will be
+        written to.
+        Defaults to '$path' which will clone into / read from '$path/reponame/'.
+
+      --repo <repo>
+
+        The repository to fetch instructions from.
+        If not given, all repos currently set up in the config file
+          '$config_file'
+        are processed.
+        If nothing is set up, this option is mandatory and leaving it out will
+        result in an error.
+        Setting this parameter implies the action 'install' on an external name
+        and 'update' on an internal name (i.e. only given a word).
+
+      -n | --dry_run-run
+
+        Do not write, just print what would be done.
+
+      -v | --verbose
+
+        Be verbose on what you're doing.
+
+    Actions
+
+      help    - Show this info
+      update  - Updates directories, files and links
+      link    - Links all the (dot)files.
+      install - Runs all installations (brew, cask, indivual install.sh)
+      brew    - Bundle only Brewfile
+      cask    - Bundle only Caskfile
+EOF
+}
+
+# set -e
+
+note() { printf "\033[00;36m$1\033[0m "; shift; printf "$*\n"; }
+info() { printf "  [ \033[00;34m..\033[0m ] $*\n"; }
+user() { printf "\r  [ \033[0;33m?\033[0m ] $* "; }
+fail() { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $*\n"; exit 1; }
+success() { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $*\n"; }
+
+parse_params() {
+  while (( $# > 0 )); do
+    token="$1"
+    shift
+    case "$token" in
+      (-n|--dry-run|--test)
+        dry_run="1"
+        ;;
+      (-v|--verbose)
+        verbose="1"
+        ;;
+      (--path)
+        if [[ -n "${1:-}" ]]; then
+          path="$1"
+          shift
+        else
+          fail "--path must be followed by a path."
+        fi
+        ;;
+      (--repo)
+        if [[ -n "${1:-}" ]]; then
+          repos="$1"
+          shift
+          actions
+          if [[ $repos =~ ^[A-Za-z0-9\._-]+$ ]]; then
+            actions+=("update")
+          else
+            actions+=("install")
+          fi
+        else
+          fail "--repo must be followed by a repository."
+        fi
+        ;;
+      (cleanup|install|update)
+        actions+=("$token")
+        ;;
+      (help)
+        usage
+        exit 0
+        ;;
+      (*)
+        usage
+        exit 1
+        ;;
+    esac
+  done
+  if [[ -z "${actions[@]}" ]]; then
+    usage
+    exit 0
+  fi
+  # expand special actions
+  declare -a _actions=()
+  for action in ${actions[@]}; do
+    if [[ "$action" == "update" ]]; then
+      _actions+=("cleanup" "install")
+    else
+      _actions+=($action)
+    fi
+    actions=("${_actions[@]}")
+  done
+
+  [[ -z $repos ]] && repos="${config_repos[@]}"
+  [[ -z $repos ]] && { echo "Error: no repo given and no repo config found under '$config_file'."; exit 3; }
+
+  if [[ -z $config_destination_dir ]]; then
+    if [[ "$path" == "." ]]; then
+      config_destination_dir=$(pwd)
+    else
+      config_destination_dir="$HOME/$path"
+    fi
+  fi
+
+  note "Path given:  " $path
+  note "Destination: " $config_destination_dir
+  note "Repos:       " ${repos[@]}
+  note "Actions:     " ${actions[@]}
+}
+
+## @fn contains_element
+# Checks whether a particular element is contained in the given list.
+# @param elem The element to search for
+# @param list The list to look into
+# @return 0 or 1
+contains_element() {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+matches_element() {
+  local e
+  for e in "${@:2}"; do [[ "$1" =~ ^$e/ ]] && return 0; done
+  return 1
+}
+
+setup_destination () {
+  local repo_url="$1"
+  local repo_name="$2"
+  local repo_destination_path="$3"
+  info "Setting up dotfiles system into $repo_destination_path"
+  if [[ "$repo_url" =~ ^[A-Za-z0-9\._-]+/[A-Za-z0-9\._-]+$ ]]; then
+    # only username/reponame given
+    repo_url="git@github.com:${repo_url}.git"
+  elif [[ "$repo_url" =~ ^[A-Za-z0-9\._-]+$ ]]; then
+    _var="config_${repo_name}_url"
+    _url=${!_var}
+    if [[ -n "$_url" ]]; then
+      repo_url=$_url
+    fi
+  fi
+
+  if [[ -e "$repo_destination_path" ]]; then
+    info "Destination path '$repo_destination_path' already exists."
+    cd "$repo_destination_path"
+    if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
+      info "Git repository is dirty. Skipping pull."
+    else
+      if [[ -z $dry_run ]]; then
+        git pull --rebase
+        success "pulled $repo_destination_path"
+      fi
+    fi
+  else
+    cd "$config_destination_dir"
+    git clone $repo_url
+    success "cloned repository"
+  fi
+  if ( ! contains_element "$repo_name" "${config_repos[@]}" ); then
+    config_repos+="$repo_url"
+  fi
+  printf -v "config_${repo_name}_url" %s "$repo_url"
+  printf -v "config_${repo_name}_path" %s "$repo_destination_path"
+  # write config
+  [[ -d $config_path ]] || mkdir $config_path
+  info "Writing config..."
+  echo "# dotfiles config" > $config_file
+  echo "config_repos=(${config_repos[@]})" >> $config_file
+  echo "config_destination_dir=$config_destination_dir" >> $config_file
+  echo "#" >> $config_file
+  for config_repo in $config_repos; do
+    _url_var="config_${config_repo}_url"
+    _path_var="config_${config_repo}_path"
+    echo "config_${config_repo}_url="${!_url_var} >> $config_file
+    echo "config_${config_repo}_path="${!_path_var} >> $config_file
+  done
+}
+
+install_brewfiles () {
+  file="$1"
+  if [[ -e "$repo_destination_path/$file" ]]; then
+    user "Continue with bundling $file? [y]es or [n]o?"
+    read -n 1 answer
+    echo
+    case "$answer" in
+      y)
+        info "Bundling $file"
+        brew bundle "$repo_destination_path/$file"
+        success "bundled $file"
+        ;;
+    esac
+  fi
+}
+
+install_individual_files () {
+  contains_element "installer" "${actions[@]}" || return 0
+  for script in $(find "$repo_destination_path" -type f -name '*install.sh' | sort -t '/' -k 3); do
+    user "Continue with installing $script? [y]es or [n]o?"
+    read -n 1 answer
+    echo
+    case "$answer" in
+      y)
+        info "Running $script"
+        if [[ -z $dry_run ]]; then
+          pushd .
+          source $script
+          popd
+        fi
+        ;;
+    esac
+  done
+}
+
+create_directory() {
+  dir="$1"
+  if [[ ! -d "$HOME/$dir" ]]; then
+    if [[ -f "$HOME/$dir" ]]; then
+      fail "directory '$HOME/$dir' can't be created, because it exists a a file"
+    else
+      if [[ -n $dry_run ]]; then
+        info "Dry: mkdir -p $HOME/$dir"
+      else
+        mkdir -p "$HOME/$dir"
+      fi
+    fi
+  fi
+}
+
+create_directories() {
+  local repo_destination_path="$1"
+  [[ -n $verbose ]] && info "Creating directories..."
+  for dir in $(find "$repo_destination_path/directories" -mindepth 1); do
+    [[ -n $verbose ]] && info "Directory: $dir"
+    create_directory "$dir"
+  done
+}
+
+##
+# link $1 to $2.
+# if $1 = /path/to/file and /path/to exists, link file to /path/to
+# if $1 = /path/to/file and /path exists, link to to /path
+create_link() {
+  local source_file="$1"
+  local destination_name="$2"
+  local destination="$HOME/$destination_name"
+
+  if [[ -n $verbose ]]; then
+    info "Link: $source_file"
+    info "  Source:           $source_file"
+    info "  Destination Name: $destination_name"
+    info "  Destination:      $destination"
+  fi
+
+  if [ -d "$destination" -a -d "$source_file" -a ! -L $destination ]; then
+    [[ -n $verbose ]] && info "  => Is already a directory"
+    return
+  fi
+
+  if [ -f "$destination" -o -d "$destination" -o -L "$destination" ]; then
+
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+      local current_src="$(readlink $destination)"
+
+      if [ "$current_src" == "$source_file" ]; then
+        skip=true;
+      else
+
+        info "File already exists: '$destination'"
+        ls -ld $source_file
+        ls -ld $destination
+        user "What do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        read -n 1 actions
+
+        case "$actions" in
+          o )
+            overwrite=true;;
+          O )
+            overwrite_all=true;;
+          b )
+            backup=true;;
+          B )
+            backup_all=true;;
+          s )
+            skip=true;;
+          S )
+            skip_all=true;;
+          * )
+            ;;
+        esac
+
+      fi
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    backup=${backup:-$backup_all}
+    skip=${skip:-$skip_all}
+
+    if [ "$overwrite" == "true" ]; then
+      if [[ -n "$dry_run" ]]; then
+        info "Dry: Removing '$destination'"
+      else
+        rm -rf "$destination"
+        success "removed $destination"
+      fi
+    fi
+
+    if [ "$backup" == "true" ]; then
+      if [[ -n "$dry_run" ]]; then
+        info "Dry: Creating backup for '$destination' in '${destination}.backup'"
+      else
+        mv "$destination" "${destination}.backup"
+        success "moved $destination to ${destination}.backup"
+      fi
+    fi
+  fi
+
+
+  if [ "$skip" == "true" ]; then
+    success "skipped $source_file"
+  else
+    if [[ -n $dry_run ]]; then
+      info "Dry: Link '$link' to '$destination'"
+    else
+      ln -s "$source_file" "$destination"
+      success "linked '$destination' -> '$source_file'"
+    fi
+  fi
+
+  linked_paths+=("$source_file")
+}
+
+create_links() {
+  local repo_destination_path="$1"
+  local overwrite_all=false backup_all=false skip_all=false
+  declare -a linked_paths=()
+
+  [[ -n $verbose ]] && info "Creating links..."
+
+  for link in $(find "$repo_destination_path/links" -mindepth 1); do
+    if ( ! matches_element $link "${linked_paths[@]}" ); then
+      create_link "$link" "${link/#$repo_destination_path\/links\//}"
+    fi
+  done
+}
+
+action_install() {
+  local repo_destination_path="$1"
+  info "Processing action: update..."
+  create_directories "$repo_destination_path"
+  create_links "$repo_destination_path"
+}
+
+action_cleanup() {
+  local repo_destination_path="$1"
+  local repo_name="$2"
+  local path="$3"
+  info "Processing action: cleanup..."
+  # find all files in $HOME that are links and linked into repo_destination_path,
+  # but the links actually doesn't exist anymore
+  prune=(Documents Music Pictures Library/Caches Library/Developer)
+  unset a i
+  while IFS= read -r -d $'\0' file; do
+    current_destination=$(readlink "$file")
+    if [[ ! -e $current_destination ]]; then
+      if [[ -n $dry_run ]]; then
+        info "Dry: Delete $file"
+      else
+        rm "$file" && success "link '$file' deleted"
+      fi
+    fi
+  done < <(find $HOME -maxdepth 5 $(for i in ${prune[@]}; do echo "-path '*/$i/*' -prune -o"; done) -lname $repo_destination_path'/*' -print0 -o -lname $path/$repo_name'/*' -print0)
+}
+
+main() {
+  local repo="$1"
+  local repo_name="$(basename "$repo" .git)"
+  local repo_destination_path="$config_destination_dir/$repo_name"
+  info "Processing repo: $repo"
+  note "Dotfiles path:" "$repo_destination_path -> $HOME"
+
+  setup_destination "$repo" "$repo_name" "$repo_destination_path"
+  for action in "${actions[@]}"; do
+    case $action in
+      cleanup)
+        action_cleanup "$repo_destination_path" "$repo_name" "$path"
+        ;;
+      install)
+        action_install "$repo_destination_path"
+        ;;
+    esac
+  done
+  # install_dotfiles
+  # contains_element "brew" "${actions[@]}" && install_brewfiles Brewfile
+  # contains_element "cask" "${actions[@]}" && install_brewfiles Caskfile
+  # install_individual_files
+}
+
+parse_params "$@"
+for repo in $repos; do
+  main "$repo"
+done

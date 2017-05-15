@@ -1,5 +1,0 @@
-# Git
-alias gmm='git merge master'
-alias gmp='git merge production'
-alias gpr='git pull --rebase'
-alias gps='git push'

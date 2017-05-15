@@ -1,1 +1,0 @@
-alias pip_update="pip list | cut -d ' ' -f 1 | xargs pip install --upgrade"

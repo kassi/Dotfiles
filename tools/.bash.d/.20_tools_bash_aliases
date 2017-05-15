@@ -1,6 +1,0 @@
-# Tools
-# alias m="PYTHONPATH=/usr/local/lib/python2.7/site-packages /usr/local/bin/mine"
-alias m="/usr/local/bin/mine"
-alias s=/usr/local/bin/subl
-alias sn="/usr/local/bin/subl -n"
-alias st='open -a SourceTree'

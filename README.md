@@ -4,16 +4,49 @@ My personal dotfiles, optimized for an osx development machine.
 
 ## Installation
 
-	curl -fsSL https://raw.github.com/kassi/Dotfiles/master/bash/bin/dotfiles | bash -s git@github.com:kassi/Dotfiles.git
+	curl -fsSL https://raw.github.com/kassi/Dotfiles/master/links/bin/dotfiles | bash -s -- --repo git@github.com:kassi/Dotfiles.git
 
 ## Documentation
 
-I picked up the idea of dividing the dotfiles in semantic parts from [holman/dotfiles](https://github.com/holman/dotfiles) and kept the `*.symlink` logic.
-However, I added a little more sugar.
+On an `install` or `update`
 
-* on first level you'll find directories for different parts/tools/apps. Inside
-    * any directory will be created in `$HOME`.
-    * any file `xyz` in a directtory `something` will be symlinked to `$HOME/something/xyz`
+* any directory in `directories` will be created, even nested
+* any item in `links` will be process as follows
+    * files will be linked to $HOME
+    * directories will checked whether they already exist.
+        * If they do, next item is processed
+        * If they are linked (already), they will be skipped
+        * Otherwise the directory will be linked
+    * During processing paths are processed in sequence
+
+Example:
+
+Given
+```
+directories/.config
+directories/.vim
+links/.config/powerline
+links/.config/powerline/some_file_or_directory
+links/.vimrc
+links/.vim/bundles
+links/.vim/bundles/bundle1
+links/.vim/bundles/bundle1/file1
+```
+
+When `install` is run
+
+Then the following commands are run
+
+* `mkdir $HOME/.config`
+* `mkdir $HOME/.vim`
+* `ln -s /path/to/links/.config/powerline $HOME/.config/powerline` because `/path/to/links/.config` is a directory and `powerline` doesn't exist there (usually)
+* `ln -s /path/to/links/.vimrc $HOME/.vimrc` because `/path/to/links/.vimrc` doesn't exist
+* `ln -s /path/to/links/.vim/bundles $HOME/.vim/bundles` because `/path/to/links/.vim` is a directory and `bundles` doesn't exist there (usually)
+
+And
+
+* All entries like `links/.config/powerline/some_file_or_directory` are ignored, because `links/.config/poweline` is linked
+* All entries like `links/.vim/bundles/bundle1` and `links/.vim/bundles/bundle1/file1` are ignored because `links/.vim/bundles` is linked
 
 ## Author
 

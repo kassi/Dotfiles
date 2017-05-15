@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Commit a gem update with proper commit message
+function commit_update {
+  gem="$1"
+  version=$(bundle list $gem | awk -F "$gem-" '{print $2}')
+  if [[ -n "$version" ]]; then
+    git commit -am "Update $gem to $version"
+  else
+    echo "No version found."
+  fi
+}
+
+function rubydoc {
+  open -a "Google Chrome" http://www.rubydoc.info/gems/$1/
+}

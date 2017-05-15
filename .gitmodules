@@ -1,81 +1,75 @@
-[submodule "vim/.vim/bundle/vim-pathogen"]
-	path = vim/.vim/bundle/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
-[submodule "vim/.vim/bundle/vim-fugitive"]
-	path = vim/.vim/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/.vim/bundle/vim-colors-solarized"]
-	path = vim/.vim/bundle/vim-colors-solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule "vim/.vim/bundle/ctrlp.vim"]
-	path = vim/.vim/bundle/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim.git
-[submodule "vim/.vim/bundle/vim-rails"]
-	path = vim/.vim/bundle/vim-rails
-	url = https://github.com/tpope/vim-rails.git
-[submodule "vim/.vim/bundle/nerdtree"]
-	path = vim/.vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "tmux/.tmux/plugins/tpm"]
-	path = tmux/.tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
-[submodule "tmux/.tmux/plugins/tmux-copycat"]
-	path = tmux/.tmux/plugins/tmux-copycat
-	url = https://github.com/tmux-plugins/tmux-copycat.git
-[submodule "tmux/.tmux/plugins/tmux-yank"]
-	path = tmux/.tmux/plugins/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank.git
-[submodule "tmux/.tmux/plugins/tmux-open"]
-	path = tmux/.tmux/plugins/tmux-open
-	url = https://github.com/tmux-plugins/tmux-open.git
-[submodule "vim/.vim/bundle/tabular"]
-	path = vim/.vim/bundle/tabular
-	url = https://github.com/godlygeek/tabular.git
-[submodule "tmux/.tmux/plugins/tmux-resurrect"]
-	path = tmux/.tmux/plugins/tmux-resurrect
-	url = https://github.com/tmux-plugins/tmux-resurrect
-[submodule "vim/.vim/bundle/vim-phix-colors"]
-	path = vim/.vim/bundle/vim-phix-colors
-	url = git@github.com:stuartherbert/vim-phix-colors.git
-[submodule "vim/.vim/bundle/vim-ruby"]
-	path = vim/.vim/bundle/vim-ruby
-	url = https://github.com/vim-ruby/vim-ruby.git
-[submodule "vim/.vim/bundle/vim-endwise"]
-	path = vim/.vim/bundle/vim-endwise
-	url = https://github.com/tpope/vim-endwise.git
-[submodule "vim/.vim/bundle/vim-colorschemes"]
-	path = vim/.vim/bundle/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
-[submodule "vim/.vim/bundle/vim-nerdtree-tabs"]
-	path = vim/.vim/bundle/vim-nerdtree-tabs
-	url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "vim/.vim/bundle/vim-nerdtree-direnter"]
 	path = vim/.vim/bundle/vim-nerdtree-direnter
 	url = https://github.com/Nopik/vim-nerdtree-direnter
 [submodule "vim/.vim/bundle/vim-nerdtree-unfocus"]
 	path = vim/.vim/bundle/vim-nerdtree-unfocus
 	url = https://github.com/baopham/vim-nerdtree-unfocus.git
-[submodule "vim/.vim/bundle/vim-session"]
-	path = vim/.vim/bundle/vim-session
-	url = https://github.com/xolox/vim-session.git
-[submodule "vim/.vim/bundle/vim-misc"]
-	path = vim/.vim/bundle/vim-misc
-	url = https://github.com/xolox/vim-misc.git
-[submodule "vim/.vim/bundle/syntastic"]
-	path = vim/.vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
-[submodule "tmux/.tmux/plugins/tmux-continuum"]
-	path = tmux/.tmux/plugins/tmux-continuum
-	url = https://github.com/tmux-plugins/tmux-continuum.git
-[submodule "vim/.vim/bundle/vim-coffee-script"]
-	path = vim/.vim/bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
 [submodule "vim/.vim/bundle/tslime.vim"]
 	path = vim/.vim/bundle/tslime.vim
 	url = https://github.com/jgdavey/tslime.vim.git
-[submodule "vim/.vim/bundle/vim-surround"]
-	path = vim/.vim/bundle/vim-surround
+[submodule "links/.tmux/plugins/tmux-copycat"]
+	path = links/.tmux/plugins/tmux-copycat
+	url = https://github.com/tmux-plugins/tmux-copycat.git
+[submodule "links/.tmux/plugins/tmux-continuum"]
+	path = links/.tmux/plugins/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum.git
+[submodule "links/.tmux/plugins/tmux-open"]
+	path = links/.tmux/plugins/tmux-open
+	url = https://github.com/tmux-plugins/tmux-open.git
+[submodule "links/.tmux/plugins/tmux-resurrect"]
+	path = links/.tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect.git
+[submodule "links/.tmux/plugins/tmux-yank"]
+	path = links/.tmux/plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank.git
+[submodule "links/.tmux/plugins/tpm"]
+	path = links/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+[submodule "links/.vim/bundle/ctrlp.vim"]
+	path = links/.vim/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git
+[submodule "links/.vim/bundle/syntastic"]
+	path = links/.vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "links/.vim/bundle/tabular"]
+	path = links/.vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "links/.vim/bundle/vim-coffee-script"]
+	path = links/.vim/bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "links/.vim/bundle/vim-colors-solarized"]
+	path = links/.vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "links/.vim/bundle/vim-colorschemes"]
+	path = links/.vim/bundle/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
+[submodule "links/.vim/bundle/vim-endwise"]
+	path = links/.vim/bundle/vim-endwise
+	url = https://github.com/tpope/vim-endwise.git
+[submodule "links/.vim/bundle/vim-fugitive"]
+	path = links/.vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "links/.vim/bundle/vim-misc"]
+	path = links/.vim/bundle/vim-misc
+	url = https://github.com/xolox/vim-misc.git
+[submodule "links/.vim/bundle/vim-pathogen"]
+	path = links/.vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "links/.vim/bundle/vim-rails"]
+	path = links/.vim/bundle/vim-rails
+	url = https://github.com/tpope/vim-rails.git
+[submodule "links/.vim/bundle/vim-ruby"]
+	path = links/.vim/bundle/vim-ruby
+	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "links/.vim/bundle/vim-session"]
+	path = links/.vim/bundle/vim-session
+	url = https://github.com/xolox/vim-session.git
+[submodule "links/.vim/bundle/vim-surround"]
+	path = links/.vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "vim/.vim/bundle/vim-tmux-runner"]
-	path = vim/.vim/bundle/vim-tmux-runner
+[submodule "links/.vim/bundle/vim-tmux-runner"]
+	path = links/.vim/bundle/vim-tmux-runner
 	url = https://github.com/christoomey/vim-tmux-runner.git
+[submodule "links/.vim/bundle/vim-nerdtree-tabs"]
+	path = links/.vim/bundle/vim-nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git

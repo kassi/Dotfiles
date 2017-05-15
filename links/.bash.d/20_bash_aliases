@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# System
+alias grep='grep --color'
+alias l='ls -FGla'
+alias ll='ls -FGlag'
+alias ls='ls -FG'
+alias top='top -ocpu'
+
+# Tools
+alias SD='cd ~/System/Dotfiles'
+alias ip='curl http://ipv4.icanhazip.com'
+alias opdone='say -v Zarvox "Operation finished"'
+alias beep='afplay ~/Music/Sounds/beep-30b.wav >/dev/null 2>&1'
+alias st='/Applications/SourceTree.app/Contents/Resources/stree'
+
+# Git
+alias gmm='git merge master'
+alias gmp='git merge production'
+alias gpr='git pull --rebase'
+alias gps='git push'
+
+# OSX
+alias airportcycle='networksetup -setairportpower airport off; networksetup -setairportpower airport on'
+
+# Python
+alias pip_update="pip list | cut -d ' ' -f 1 | xargs pip install --upgrade"
+
+# Rails
+alias b='bundle'
+alias be='bundle exec'
+alias bo='bundle open'
+alias br='bin/rails'
+alias by='bundle && yarn'
+alias f='foreman start -f Procfile.dev'
+alias g='bundle exec guard'
+alias rr='bundle exec rake routes'
+# alias rake='sh -c '\''[ -x bin/rake ] && bin/rake "$@" || [ -f Gemfile -o -d .bundle ] && bundle exec rake "$@" || \rake "$@"'\'' _'
+alias rake='safe_rake'
+alias rdbm='rake db:migrate && rake db:migrate RAILS_ENV=test'

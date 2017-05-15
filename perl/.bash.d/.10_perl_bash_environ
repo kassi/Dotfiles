@@ -1,7 +1,0 @@
-### Perl
-export PERL5LIB=
-
-### perlbrew
-export PERLBREW_ROOT=$HOME/Library/Perl
-[ -f "$PERLBREW_ROOT/etc/bashrc" ] && . $PERLBREW_ROOT/etc/bashrc
-

@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+### Oxygen
+### temporarily disabled. Homebrew complained about it
+### export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/Developer/oxygen
+
+# Ansible
+export ANSIBLE_HOSTS=$HOME/System/Hosts/hosts
+
+# OSX: Make clean tarballs and more in Leopard
+export COPYFILE_DISABLE=true
+
+### Java
+export JAVA_HOME=/Library/Java/Home
+PATH=${JAVA_HOME}:$PATH
+
+### MySQL
+export MYSQL_HOME=/usr/local/mysql/bin
+# export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
+PATH=${MYSQL_HOME}:$PATH
+
+# Standard environment variables
+export EDITOR=edit
+export BUNDLER_EDITOR="subl"
+export HISTCONTROL=ignoredups
+export HISTSIZE=10000
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+
+export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/opt/openssl/bin:$PATH
+for lib in "icu4c" "openssl" "readline"; do
+  LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
+  CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
+done
+for lib in "icu4c" "openssl"; do
+  PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/$lib/lib/pkgconfig"
+done
+export LDFLAGS
+export CPPFLAGS
+export PKG_CONFIG_PATH
+
+export POWERLINE_BINDINGS_PATH=/usr/local/lib/python3.6/site-packages/powerline/bindings
+
+### Perforce
+#export P4PORT=1666
+#export P4CLIENT=$USER
+#export P4ROOT=$HOME/Projects/P4ROOT
+
+### Perl
+export PERL5LIB=
+
+### perlbrew
+export PERLBREW_ROOT=$HOME/Library/Perl
+[ -f "$PERLBREW_ROOT/etc/bashrc" ] && . $PERLBREW_ROOT/etc/bashrc
+
+### Python
+# export PYTHONPATH=`brew --prefix`/lib/python3.6/site-packages
+
+### Ruby
+export RDOCOPT="--encoding=UTF-8"
+# disabled, because rvm complains about it
+# export RUBYOPT=rubygems
+
+### RVM
+[ -f "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
+export rvm_silence_path_mismatch_check_flag=1 # to avoid stupid warnings
+
+
+# Riak
+# ulimit -n 1024
+
+### Enhanced Git featured prompt
+export PS1=$Yellow$PathShort$Color_Off'$(git branch &>/dev/null;\
+if [ $? -eq 0 ]; then \
+  echo \
+    "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+      if [ "$?" -eq "0" ]; then \
+        echo -n " '$Green'"$(_git_branch_fmt "'$IBlack'['$Green'%s'$IBlack']"); \
+      else \
+        echo -n " '$IRed'"$(_git_branch_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
+      fi) $( \
+      _git_stashes "'$IBlack'['$Yellow'%s'$IBlack']") $( \
+      echo `git status` | grep "Your branch is up-to-date" > /dev/null 2>&1; \
+      if [ "$?" -eq "0" ]; then \
+        echo -n $(_git_remote_fmt "'$IBlack'['$Green'%s'$IBlack']"); \
+      else \
+        echo -n $(_git_remote_fmt "'$IBlack'['$IRed'%s'$IBlack'↯]"); \
+      fi)"; \
+else \
+  echo -n " '$Color_Off'"; \
+fi)'"\n"$IBlack"\t"$Color_Off" \$ "
+
+[ -f "${HOME}/.bash_secrets" ] && . "${HOME}/.bash_secrets"
+
+if [ -n "$TMUX" ]; then
+  . $POWERLINE_BINDINGS_PATH/bash/powerline.sh
+fi
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rsync $@ -vauz --numeric-ids -e ssh kali:Documents/Hacking/ $HOME/Documents/Hacking/ --exclude Lists/
+rsync $@ -vauz --numeric-ids -e ssh $HOME/Documents/Hacking/ kali:Documents/Hacking/ --exclude Lists/
+ssh kali chown -R root Documents/Hacking
