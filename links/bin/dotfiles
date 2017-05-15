@@ -287,6 +287,9 @@ create_link() {
   local source_file="$1"
   local destination_name="$2"
   local destination="$HOME/$destination_name"
+  local backup=false
+  local overwrite=false
+  local skip=false
 
   if [[ -n $verbose ]]; then
     info "Link: $source_file"
@@ -306,9 +309,8 @@ create_link() {
       local current_src="$(readlink $destination)"
 
       if [ "$current_src" == "$source_file" ]; then
-        skip=true;
+        skip=true
       else
-
         info "File already exists: '$destination'"
         ls -ld $source_file
         ls -ld $destination
@@ -331,7 +333,6 @@ create_link() {
           * )
             ;;
         esac
-
       fi
     fi
 
