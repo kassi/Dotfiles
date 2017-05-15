@@ -201,21 +201,25 @@ setup_destination () {
   fi
 
   if [[ -e "$repo_destination_path" ]]; then
-    info "Destination path '$repo_destination_path' already exists."
     cd "$repo_destination_path"
+    info "Destination path '$repo_destination_path' already exists."
     if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then
       info "Git repository is dirty. Skipping pull."
     else
       if [[ -z $dry_run ]]; then
         git pull --rebase
         success "pulled $repo_destination_path"
+        git submodule update --init --remote --recursive --rebase
       fi
     fi
   else
     cd "$config_destination_dir"
     git clone $repo_url
     success "cloned repository"
+    cd "$config_destination_path"
+    git submodule update --init --remote --recursive --rebase
   fi
+
   if ( ! contains_element "$repo_name" "${new_repos[@]}" ); then
     new_repos+=("$repo_name")
   fi
