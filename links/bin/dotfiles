@@ -202,7 +202,8 @@ setup_destination () {
       if [[ -z $dry_run ]]; then
         git pull --rebase
         success "pulled $repo_destination_path"
-        git submodule update --init --remote --recursive
+        git submodule update --init --remote --force
+        git submodule update --init --recursive --force
       fi
     fi
   else
@@ -210,7 +211,8 @@ setup_destination () {
     git clone $repo_url
     success "cloned repository"
     cd "$config_destination_path"
-    git submodule update --init --remote --recursive
+    git submodule update --init --remote --force
+    git submodule update --init --recursive --force
   fi
 
   if ( ! contains_element "$repo_name" "${new_repos[@]}" ); then
