@@ -260,6 +260,7 @@ create_directory() {
 
 create_directories() {
   local repo_destination_path="$1"
+  [[ -d "$repo_destination_path/directories" ]] || return
   [[ -n $verbose ]] && info "Creating directories..."
   for repo_dir in $(find "$repo_destination_path/directories" -mindepth 1 -type d); do
     dir=${repo_dir#$repo_destination_path/directories/}
@@ -372,6 +373,9 @@ create_link() {
 
 create_links() {
   local repo_destination_path="$1"
+
+  [[ -d "$repo_destination_path/links" ]] || return
+
   local overwrite_all=false backup_all=false skip_all=false
   declare -a linked_paths=()
 
