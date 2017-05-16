@@ -223,6 +223,9 @@ setup_destination () {
 run_scripts () {
   local repo_destination_path="$1"
   local overwrite_all=false backup_all=false skip_all=false
+
+  [[ -d "$repo_destination_path/scripts" ]] || return;
+
   declare -a linked_paths=()
 
   [[ -n $verbose ]] && info "Running scripts..."
@@ -242,7 +245,7 @@ create_directory() {
   dir="$1"
   if [[ ! -d "$HOME/$dir" ]]; then
     if [[ -f "$HOME/$dir" ]]; then
-      fail "directory '$HOME/$dir' can't be created, because it exists a a file"
+      fail "directory '$HOME/$dir' can't be created, because it exists as a file"
     else
       if [[ -n $dry_run ]]; then
         info "Dry: mkdir -p $HOME/$dir"
