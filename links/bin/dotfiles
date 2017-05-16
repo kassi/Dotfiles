@@ -233,10 +233,13 @@ run_scripts () {
     if [[ -n $dry_run ]]; then
       info "Dry: Run '$script'"
     else
-      info "Running: '$script'"
-      pushd . >/dev/null
-      source $script
-      popd >/dev/null
+      user "Run script: '$script' [y]es or [n]o? "
+      read -n 1 answer </dev/tty
+      if [[ $answer == "y" ]]; then
+        pushd . >/dev/null
+        source $script
+        popd >/dev/null
+      fi
     fi
   done
 }
