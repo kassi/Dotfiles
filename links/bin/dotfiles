@@ -250,7 +250,7 @@ create_directory() {
       if [[ -n $dry_run ]]; then
         info "Dry: mkdir -p $HOME/$dir"
       else
-        mkdir -p "$HOME/$dir"
+        mkdir -p "$HOME/$dir" && success "$HOME/$dir created"
       fi
     fi
   fi
@@ -351,8 +351,7 @@ create_link() {
     if [[ -n $dry_run ]]; then
       info "Dry: Link '$link' to '$destination'"
     else
-      ln -s "$source_file" "$destination"
-      success "linked '$destination' -> '$source_file'"
+      ln -s "$source_file" "$destination" && success "linked '$destination' -> '$source_file'"
     fi
   fi
 
