@@ -8,6 +8,7 @@ path="System"
 repos=
 # config
 declare -a config_repos
+declare -a config_always_skipped
 declare -a new_repos
 config_path="$HOME/.config"
 config_file="$config_path/dotfiles"
@@ -88,6 +89,7 @@ write_config() {
   echo "# dotfiles config" > $config_file
   echo "config_repos=(${new_repos[@]})" >> $config_file
   echo "config_destination_dir=$config_destination_dir" >> $config_file
+  echo "config_always_skipped=(${config_always_skipped[@]})" >> $config_file
   echo "#" >> $config_file
   for config_repo in $new_repos; do
     _url_var="config_${config_repo}_url"
@@ -277,6 +279,7 @@ create_link() {
   local backup=false
   local overwrite=false
   local skip=false
+  local always_skip=false
 
   if [[ -n $verbose ]]; then
     info "Link: $source_file"
@@ -291,8 +294,9 @@ create_link() {
   fi
 
   if [ -f "$destination" -o -d "$destination" -o -L "$destination" ]; then
-
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+    if (contains_element "$destination" "${config_always_skipped[@]}"); then
+      skip=true
+    elif [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
       local current_src="$(readlink $destination)"
 
       if [ "$current_src" == "$source_file" ]; then
@@ -301,7 +305,7 @@ create_link() {
         info "File already exists: '$destination'"
         ls -ld $source_file
         ls -ld $destination
-        user "What do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "What do you want to do? [s]kip, [S]kip all, [a]lways skip, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 answer < /dev/tty
 
         case "$answer" in
@@ -317,6 +321,8 @@ create_link() {
             skip=true;;
           S )
             skip_all=true;;
+          a )
+            always_skip=true;;
           * )
             ;;
         esac
@@ -343,6 +349,11 @@ create_link() {
         mv "$destination" "${destination}.backup"
         success "moved $destination to ${destination}.backup"
       fi
+    fi
+
+    if [ "$always_skip" == "true" ]; then
+      config_always_skipped+=("$destination")
+      skip=true
     fi
   fi
 
