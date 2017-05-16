@@ -9,11 +9,11 @@ repos=
 # config
 declare -a config_repos
 declare -a config_always_skipped
-declare -a new_repos
 config_path="$HOME/.config"
 config_file="$config_path/dotfiles"
 config_destination_dir=
 [[ -f $config_file ]] && source $config_file
+declare -a new_repos=("${config_repos[@]}")
 # actions and flags
 declare -a actions=()
 dry_run=
@@ -91,7 +91,7 @@ write_config() {
   echo "config_destination_dir=$config_destination_dir" >> $config_file
   echo "config_always_skipped=(${config_always_skipped[@]})" >> $config_file
   echo "#" >> $config_file
-  for config_repo in $new_repos; do
+  for config_repo in ${new_repos[@]}; do
     _url_var="config_${config_repo}_url"
     _path_var="config_${config_repo}_path"
     echo "config_${config_repo}_url="${!_url_var} >> $config_file
