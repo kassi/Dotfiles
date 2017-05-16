@@ -261,7 +261,8 @@ create_directory() {
 create_directories() {
   local repo_destination_path="$1"
   [[ -n $verbose ]] && info "Creating directories..."
-  for dir in $(find "$repo_destination_path/directories" -mindepth 1); do
+  for repo_dir in $(find "$repo_destination_path/directories" -mindepth 1 -type d); do
+    dir=${repo_dir#$repo_destination_path/directories/}
     [[ -n $verbose ]] && info "Directory: $dir"
     create_directory "$dir"
   done
