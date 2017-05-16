@@ -235,6 +235,7 @@ run_scripts () {
     else
       user "Run script: '$script' [y]es or [n]o? "
       read -n 1 answer </dev/tty
+      echo
       if [[ $answer == "y" ]]; then
         pushd . >/dev/null
         source $script
