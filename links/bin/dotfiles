@@ -122,7 +122,6 @@ parse_params() {
         if [[ -n "${1:-}" ]]; then
           repos="$1"
           shift
-          actions
           if [[ $repos =~ ^[A-Za-z0-9\._-]+$ ]]; then
             actions+=("update")
           else
@@ -157,8 +156,8 @@ parse_params() {
     else
       _actions+=($action)
     fi
-    actions=("${_actions[@]}")
   done
+  actions=($(awk '!x[$0]++' <(for i in "${_actions[@]}"; do echo "$i"; done)))
 
   [[ -z $repos ]] && repos="${config_repos[@]}"
   [[ -z $repos ]] && { echo "Error: no repo given and no repo config found under '$config_file'."; exit 3; }
@@ -390,7 +389,7 @@ create_links() {
 
 action_install() {
   local repo_destination_path="$1"
-  info "Processing action: update..."
+  info "Processing action: install..."
   create_directories "$repo_destination_path"
   create_links "$repo_destination_path"
   run_scripts "$repo_destination_path"
