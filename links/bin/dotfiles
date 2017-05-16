@@ -227,17 +227,16 @@ run_scripts () {
 
   [[ -d "$repo_destination_path/scripts" ]] || return;
 
-  declare -a linked_paths=()
-
   [[ -n $verbose ]] && info "Running scripts..."
 
   for script in $(find "$repo_destination_path/scripts" -type f -name '*.sh' | sort); do
     if [[ -n $dry_run ]]; then
       info "Dry: Run '$script'"
     else
-      pushd .
+      info "Running: '$script'"
+      pushd . >/dev/null
       source $script
-      popd
+      popd >/dev/null
     fi
   done
 }
@@ -431,6 +430,7 @@ main() {
         ;;
       install)
         action_install "$repo_destination_path"
+        run_scripts "$repo_destination_path"
         ;;
     esac
   done
