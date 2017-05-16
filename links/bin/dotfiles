@@ -58,11 +58,9 @@ usage() {
     Actions
 
       help    - Show this info
-      update  - Updates directories, files and links
-      link    - Links all the (dot)files.
-      install - Runs all installations (brew, cask, indivual install.sh)
-      brew    - Bundle only Brewfile
-      cask    - Bundle only Caskfile
+      cleanup - Searches for invalid links into the repo and deleted them
+      install - Updates directories, files and links
+      update  - Runs cleanup and install
 EOF
 }
 
