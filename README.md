@@ -11,7 +11,7 @@ My personal dotfiles, optimized for an osx development machine.
 On an `install` or `update`
 
 * any directory in `directories` will be created, even nested
-* any item in `links` will be process as follows
+* any item in `links` will be processed as follows
     * files will be linked to $HOME
     * directories will checked whether they already exist.
         * If they do, next item is processed
