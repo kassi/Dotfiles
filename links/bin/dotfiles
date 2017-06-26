@@ -436,7 +436,6 @@ main() {
         ;;
       install)
         action_install "$repo_destination_path"
-        run_scripts "$repo_destination_path"
         ;;
     esac
   done
