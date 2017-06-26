@@ -58,7 +58,8 @@ usage() {
 
     Actions
 
-      help    - Show this info
+      help    - Show this info and exit
+      list    - List all configured dotfile repos and exit
       cleanup - Searches for invalid links into the repo and deleted them
       install - Updates directories, files and links
       update  - Runs cleanup and install
@@ -136,6 +137,14 @@ parse_params() {
         ;;
       (help)
         usage
+        exit 0
+        ;;
+      (list)
+        if [[ -f $config_file ]]; then
+          cat $config_file
+        else
+          echo "No config file present"
+        fi
         exit 0
         ;;
       (*)
