@@ -247,16 +247,18 @@ run_scripts () {
 
 create_directory() {
   dir="$1"
-  if [[ ! -d "$HOME/$dir" ]]; then
-    if [[ -f "$HOME/$dir" ]]; then
-      fail "directory '$HOME/$dir' can't be created, because it exists as a file"
-    else
-      if [[ -n $dry_run ]]; then
-        info "Dry: mkdir -p $HOME/$dir"
-      else
-        mkdir -p "$HOME/$dir" && success "$HOME/$dir created"
-      fi
-    fi
+  destination="$HOME/$dir"
+  if [[ -f $destination ]]; then
+    fail "directory '$destination' can't be created, because it exists as a file"
+  elif [[ -L $destination ]]; then
+    info "Directory already exists as a link: '$destination' -> $(readlink $destination)"
+    rm "$destination"
+    success "removed $destination"
+  fi
+  if [[ -n $dry_run ]]; then
+    info "Dry: mkdir -p $HOME/$dir"
+  else
+    mkdir -p "$HOME/$dir" && success "$HOME/$dir created"
   fi
 }
 
