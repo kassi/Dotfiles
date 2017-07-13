@@ -13,6 +13,8 @@ alias opdone='say -v Zarvox "Operation finished"'
 alias beep='afplay ~/Music/Sounds/beep-30b.wav >/dev/null 2>&1'
 alias s='/usr/local/bin/subl'
 alias st='/Applications/SourceTree.app/Contents/Resources/stree'
+alias audfprint='python /Users/Kassi/Projects/Entwicklung/GitHub/GitHub/audfprint/audfprint.py'
+alias burntcookie='/Users/Kassi/Projects/Entwicklung/GitHub/GitHub/burnt-cookie/target/release/burntcookie'
 
 # Git
 alias gmm='git merge master'
