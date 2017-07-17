@@ -123,7 +123,13 @@ check_hostname() {
 check_ssh_key() {
   if [[ ! -f $HOME/.ssh/id_rsa ]]; then
     if ask "No ssh key present. Shall I create one"; then
-      echo -e "\n\n\n" | ssh-keygen -b 4096 -t rsa
+      echo -e "\n" | ssh-keygen -b 4096 -t rsa
+      info "If you need access, make sure to add the new public key to the git repo."
+      info "It's copied to the clipboard."
+      cat $HOME/.ssh/id_rsa.pub | pbcopy
+      open "https://github.com/settings/keys"
+      user "[ENTER] to continue: "
+      read
     else
       ssh_present=
     fi
