@@ -256,6 +256,9 @@ setup_destination () {
       fi
     fi
   else
+    if [[ ! -d $config_destination_dir ]]; then
+      mkdir -p "$config_destination_dir"
+    fi
     cd "$config_destination_dir"
     git clone $repo_url
     success "cloned repository"
