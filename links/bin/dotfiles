@@ -514,3 +514,4 @@ for repo in $repos; do
   main "$repo"
 done
 write_config
+exec $SHELL -l
