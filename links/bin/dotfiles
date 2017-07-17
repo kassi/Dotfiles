@@ -123,7 +123,7 @@ check_hostname() {
 check_ssh_key() {
   if [[ ! -f $HOME/.ssh/id_rsa ]]; then
     if ask "No ssh key present. Shall I create one"; then
-      ssh-keygen -b 4096
+      echo -e "\n\n\n" | ssh-keygen -b 4096 -t rsa
     else
       ssh_present=
     fi
