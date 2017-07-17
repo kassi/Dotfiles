@@ -120,10 +120,14 @@ check_hostname() {
   fi
 }
 
+generate_ssh_key() {
+  ssh-keygen -b 4096 -t rsa -f $HOME/.ssh/id_rsa
+}
+
 check_ssh_key() {
   if [[ ! -f $HOME/.ssh/id_rsa ]]; then
     if ask "No ssh key present. Shall I create one"; then
-      echo -e "\n" | ssh-keygen -b 4096 -t rsa
+      generate_ssh_key
       info "If you need access, make sure to add the new public key to the git repo."
       info "It's copied to the clipboard."
       cat $HOME/.ssh/id_rsa.pub | pbcopy
