@@ -6,6 +6,10 @@ My personal dotfiles, optimized for an osx development machine.
 
 	curl -fsSL https://raw.github.com/kassi/Dotfiles/master/links/bin/dotfiles | bash -s -- --repo git@github.com:kassi/Dotfiles.git
 
+or if you're not me
+
+  curl -fsSL https://raw.github.com/kassi/Dotfiles/master/links/bin/dotfiles | bash -s -- --repo https://github.com/kassi/Dotfiles.git
+
 ## Documentation
 
 On an `install` or `update`
@@ -35,6 +39,11 @@ links/.vim/bundles/bundle1/file1
 ```
 
 When `install` is run
+
+Then the following checks are done
+
+* if no hostname is set it will ask for one
+* if no ssh key is present (rsa), it will ask to create one
 
 Then the following commands are run
 

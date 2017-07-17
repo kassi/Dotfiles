@@ -18,6 +18,7 @@ declare -a new_repos=("${config_repos[@]}")
 declare -a actions=()
 dry_run=
 verbose=
+ssh_present=1
 
 usage() {
   cat <<-EOF | sed 's/^    //'
@@ -72,6 +73,17 @@ user() { printf "\r  [ \033[0;33m?\033[0m ] $* "; }
 fail() { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $*\n"; exit 1; }
 success() { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $*\n"; }
 
+ask() {
+  user "$1 [y]es or [n]o? "
+  read -n 1 answer </dev/tty
+  echo
+  if [[ $answer == "y" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 contains_element() {
   local e
   for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
@@ -98,6 +110,29 @@ write_config() {
     echo "config_${config_repo}_url="${!_url_var} >> $config_file
     echo "config_${config_repo}_path="${!_path_var} >> $config_file
   done
+}
+
+check_hostname() {
+  if [[ $(scutil --get HostName 2>&1) =~ "HostName: not set" ]]; then
+    user "Hostname not set. Please enter a new hostname: "
+    read hostname </dev/tty
+    scutil --set HostName "$hostname"
+  fi
+}
+
+check_ssh_key() {
+  if [[ ! -f $HOME/.ssh/id_rsa ]]; then
+    if ask "No ssh key present. Shall I create one"; then
+      ssh-keygen -b 4096
+    else
+      ssh_present=
+    fi
+  fi
+}
+
+run_checks() {
+  check_hostname
+  check_ssh_key
 }
 
 parse_params() {
@@ -198,6 +233,12 @@ setup_destination () {
     _url=${!_var}
     if [[ -n "$_url" ]]; then
       repo_url=$_url
+    fi
+  fi
+  if [[ -z $ssh_present ]]; then
+    if [[ "$repo_url" =~ ^git@github.com: ]]; then
+      repo_path=${repo_url#git@github.com:}
+      repo_url="https://github.com/$repo_path"
     fi
   fi
 
@@ -454,6 +495,7 @@ main() {
   # install_individual_files
 }
 
+run_checks
 parse_params "$@"
 for repo in $repos; do
   main "$repo"
