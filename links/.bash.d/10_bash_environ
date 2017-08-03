@@ -3,11 +3,21 @@
 ### temporarily disabled. Homebrew complained about it
 ### export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/Developer/oxygen
 
-# Ansible
-export ANSIBLE_HOSTS=$HOME/System/Hosts/hosts
+# Standard environment variables
+export EDITOR=edit
+export VISUAL=vim
+export BUNDLER_EDITOR="subl"
+export HISTCONTROL=ignoredups
+export HISTSIZE=10000
 
 # OSX: Make clean tarballs and more in Leopard
 export COPYFILE_DISABLE=true
+
+# Ansible
+export ANSIBLE_HOSTS=$HOME/System/Hosts/hosts
+
+# Erlang
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 ### Java
 export JAVA_HOME=/Library/Java/Home
@@ -17,13 +27,6 @@ PATH=${JAVA_HOME}:$PATH
 export MYSQL_HOME=/usr/local/mysql/bin
 # export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 PATH=${MYSQL_HOME}:$PATH
-
-# Standard environment variables
-export EDITOR=edit
-export VISUAL=vim
-export BUNDLER_EDITOR="subl"
-export HISTCONTROL=ignoredups
-export HISTSIZE=10000
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
