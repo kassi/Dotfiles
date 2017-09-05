@@ -92,7 +92,9 @@ contains_element() {
 
 matches_element() {
   local e
-  for e in "${@:2}"; do [[ "$1" =~ ^$e/ ]] && return 0; done
+  for e in "${@:2}"; do
+    [[ "$1" == "$e/"* ]] && return 0;
+  done
   return 1
 }
 
@@ -356,7 +358,7 @@ create_link() {
     info "  Destination:      $destination"
   fi
 
-  if [ -d "$destination" -a -d "$source_file" -a ! -L $destination ]; then
+  if [ -d "$destination" -a -d "$source_file" -a ! -L "$destination" ]; then
     [[ -n $verbose ]] && info "  => Is already a directory"
     return
   fi
@@ -371,8 +373,8 @@ create_link() {
         skip=true
       else
         info "File already exists: '$destination'"
-        ls -ld $source_file
-        ls -ld $destination
+        ls -ld "$source_file"
+        ls -ld "$destination"
         user "What do you want to do? [s]kip, [S]kip all, [a]lways skip, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 answer < /dev/tty
 
@@ -448,9 +450,9 @@ create_links() {
 
   [[ -n $verbose ]] && info "Creating links..."
 
-  for link in $(find "$repo_destination_path/links" -mindepth 1); do
-    if ( ! matches_element $link "${linked_paths[@]}" ); then
-      create_link "$link" "${link/#$repo_destination_path\/links\//}"
+  find "$repo_destination_path/links" -mindepth 1 | while read LINK; do
+    if ( ! matches_element "$LINK" "${linked_paths[@]}" ); then
+      create_link "$LINK" "${LINK/#$repo_destination_path\/links\//}"
     fi
   done
 }
