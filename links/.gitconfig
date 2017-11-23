@@ -40,7 +40,7 @@
 
 [core]
     editor = /usr/local/bin/subl -w
-    excludesfile = ~/.gitignore
+	excludesfile = /Users/karsten.silkenbaeume/.gitignore
 
 [credential]
     helper = osxkeychain

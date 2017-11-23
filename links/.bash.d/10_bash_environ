@@ -31,16 +31,16 @@ PATH=${MYSQL_HOME}:$PATH
 # nvm
 export NVM_DIR="$HOME/.nvm"
 
-for lib in "icu4c" "openssl@1.1" "readline"; do
-  LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
-  CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
-done
-for lib in "icu4c" "openssl@1.1"; do
-  PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/$lib/lib/pkgconfig"
-done
-for lib in "openssl@1.1"; do
-  PATH=/usr/local/opt/$lib/bin:$PATH
-done
+# for lib in "icu4c" "openssl@1.1" "readline"; do
+#   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
+#   CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
+# done
+# for lib in "icu4c" "openssl@1.1"; do
+#   PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/$lib/lib/pkgconfig"
+# done
+# for lib in "openssl@1.1"; do
+#   PATH=/usr/local/opt/$lib/bin:$PATH
+# done
 export LDFLAGS
 export CPPFLAGS
 export PKG_CONFIG_PATH

@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-if [[ -n "$TMUX" ]]; then
-  source $POWERLINE_BINDINGS_PATH/bash/powerline.sh
-fi
 
 # This should always be run last either in .bashrc or as a script in .bashrc.d
 if [[ -z "$TMUX" && -n "$SSH_CONNECTION" ]] && which tmux >& /dev/null; then
