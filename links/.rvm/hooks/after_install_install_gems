@@ -5,6 +5,7 @@ gems=(
   cocoapods
   highline
   foreman
+  mdless
 )
 for gem in ${gems[@]}; do
   ${rvm_ruby_gem_home}/wrappers/gem install $gem
