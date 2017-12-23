@@ -1,1 +1,2 @@
 rvm_ignore_dotfiles=yes
+rvm_autoupdate_flag=2
