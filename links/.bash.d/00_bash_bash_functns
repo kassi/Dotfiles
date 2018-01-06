@@ -24,3 +24,27 @@ function forget_host {
 function racoonupdate {
   sudo sed -i.old "s/local_address .*;/local_address $(ifconfig en0 | grep 'inet ' | cut -d ' ' -f 2);/" /etc/racoon/213.198.82.174.conf
 }
+
+### n for node version management
+function load-node-version {
+  if [[ -f .node-version ]]; then
+    n $(cat .node-version)
+  fi
+}
+function cd {
+  builtin cd "$@";
+  "load-node-version";
+}
+
+function devinfo {
+  echo "which ruby:     " $(which ruby)
+  echo "  ruby version: " $(ruby -v)
+  echo "  rails version:" $(rails -v)
+  echo
+  echo "which node:     " $(which node)
+  echo "  node version: " $(node -v)
+}
+
+function path {
+  ruby -e 'require "pp"; pp ENV["PATH"].split(":")'
+}
