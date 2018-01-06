@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 gems=(
+  artii
   bundler
   cheatset
   cocoapods
-  highline
   foreman
+  highline
   mdless
 )
 for gem in ${gems[@]}; do
