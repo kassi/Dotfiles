@@ -28,9 +28,6 @@ export MYSQL_HOME=/usr/local/mysql/bin
 # export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 PATH=${MYSQL_HOME}:$PATH
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-
 # for lib in "icu4c" "openssl@1.1" "readline"; do
 #   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
 #   CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
@@ -46,6 +43,14 @@ export CPPFLAGS
 export PKG_CONFIG_PATH
 export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$(brew --prefix qt@5.5)/bin:$PATH
 export POWERLINE_BINDINGS_PATH=/usr/local/lib/python3.6/site-packages/powerline/bindings
+
+### n for node version management
+load-node-version() {
+  if [[ -f .node-version ]]; then
+    n $(cat .node-version)
+  fi
+}
+cd() { builtin cd "$@"; 'load-node-version'; }
 
 ### Perforce
 #export P4PORT=1666

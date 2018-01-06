@@ -4,7 +4,6 @@
 for file in \
   $HOME/.bash_colours \
   $HOME/.rvm/scripts/rvm \
-  /usr/local/opt/nvm/nvm.sh \
   ${HOME}/.iterm2_shell_integration.bash \
   /usr/local/etc/bash_completion
 do
