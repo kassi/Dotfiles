@@ -44,8 +44,7 @@ export NVM_DIR="$HOME/.nvm"
 export LDFLAGS
 export CPPFLAGS
 export PKG_CONFIG_PATH
-export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$PATH
-
+export PATH=~/bin:/usr/local/bin:/usr/local/sbin:$(brew --prefix qt@5.5)/bin:$PATH
 export POWERLINE_BINDINGS_PATH=/usr/local/lib/python3.6/site-packages/powerline/bindings
 
 ### Perforce
