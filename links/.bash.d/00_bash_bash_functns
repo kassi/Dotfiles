@@ -43,6 +43,9 @@ function devinfo {
   echo
   echo "which node:     " $(which node)
   echo "  node version: " $(node -v)
+  # echo
+  # echo "which perl:     " $(which perl)
+  # echo "  perl version: " $(perl -v | grep '(v' | cut -d '(' -f 2 | cut -d ')' -f 1)
 }
 
 function path {
