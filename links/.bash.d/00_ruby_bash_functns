@@ -13,3 +13,17 @@ function commit_update {
 function rubydoc {
   open -a "Google Chrome" http://www.rubydoc.info/gems/$1/
 }
+
+function cucumber_rerun {
+  if [[ -n "$@" ]]; then
+    rm tmp/cucumber_rerun.txt
+  fi
+  if [ ! -f tmp/cucumber_rerun.txt ]; then
+    cucumber "$@" -f rerun --out tmp/cucumber_rerun.txt
+  else
+    cucumber @tmp/cucumber_rerun.txt -f rerun --out tmp/cucumber_rerun.tmp
+    if [ -f tmp/cucumber_rerun.tmp ]; then
+      mv tmp/cucumber_rerun.tmp tmp/cucumber_rerun.txt
+    fi
+  fi
+}
