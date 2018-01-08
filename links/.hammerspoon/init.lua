@@ -1,5 +1,6 @@
 require("window")
 require("mouse")
+require("hs.ipc")
 -- require("caffeine")
 
 function reloadConfig(files)
