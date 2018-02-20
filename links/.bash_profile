@@ -21,6 +21,8 @@ do
   test -s "$file" && source "$file"
 done
 
+eval "$(pyenv init -)"
+
 if [ -n "$TMUX" ]; then
   . $POWERLINE_BINDINGS_PATH/bash/powerline.sh
 fi
