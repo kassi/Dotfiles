@@ -37,15 +37,25 @@ function cd {
 }
 
 function devinfo {
-  echo "which ruby:     " $(which ruby)
-  echo "  ruby version: " $(ruby -v)
-  echo "  rails version:" $(rails -v)
+  echo "which node:       " $(which node)
+  echo "  node version:   " $(node -v)
   echo
-  echo "which node:     " $(which node)
-  echo "  node version: " $(node -v)
-  # echo
   # echo "which perl:     " $(which perl)
   # echo "  perl version: " $(perl -v | grep '(v' | cut -d '(' -f 2 | cut -d ')' -f 1)
+  # echo
+  which_python=$(which python)
+  if [[ $which_python == *".pyenv"* ]]; then
+    which_python="$which_python ($(pyenv which python))"
+  fi
+  echo "which python:     " $which_python
+  echo "  python version: " $(python --version 2>&1)
+  echo
+  echo "which ruby:       " $(which ruby)
+  echo "  ruby version:   " $(ruby -v)
+  echo "  rails version:  " $(rails -v)
+  echo
+  echo "MySQL version:    " $(mysql --version)
+  echo "MySQL status:     " $(mysql.server status)
 }
 
 function path {
