@@ -8,6 +8,7 @@ alias top='top -ocpu'
 
 # Tools
 alias SD='cd ~/System/Dotfiles'
+alias chrome='open -a "Google Chrome"'
 alias ip='curl http://ipv4.icanhazip.com'
 alias opdone='say -v Zarvox "Operation finished"'
 alias beep='afplay ~/Music/Sounds/beep-30b.wav >/dev/null 2>&1'
