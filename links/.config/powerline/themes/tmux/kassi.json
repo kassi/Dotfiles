@@ -4,13 +4,12 @@
             "before": "⇑  "
         },
         "date": {
-            "before": "📆  "
+            "before": "📆 "
         },
         "time": {
-            "before": "⌚  "
         },
         "battery": {
-          "before": "🔋  "
+          "before": "🔋 "
         },
         "hostname": {
             "args": {
