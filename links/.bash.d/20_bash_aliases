@@ -17,6 +17,9 @@ alias st='/Applications/SourceTree.app/Contents/Resources/stree'
 alias audfprint='python /Users/Kassi/Projects/Entwicklung/GitHub/GitHub/audfprint/audfprint.py'
 alias burntcookie='/Users/Kassi/Projects/Entwicklung/GitHub/GitHub/burnt-cookie/target/release/burntcookie'
 
+# General
+alias dev='cd ~/Projects/Entwicklung'
+
 # Git
 alias gmm='git merge master'
 alias gmp='git merge production'

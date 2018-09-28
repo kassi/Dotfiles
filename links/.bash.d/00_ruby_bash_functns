@@ -27,3 +27,7 @@ function cucumber_rerun {
     fi
   fi
 }
+
+function rac {
+  rails_apps_composer "$@" -l ~/Sites/recipes -d ~/Sites/recipes/.rails_apps_composer.yaml
+}
