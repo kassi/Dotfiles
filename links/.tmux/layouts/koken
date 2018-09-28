@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+reset_window
+
+# create all necessary panes
+# first one is for foreman at the top
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/www.xn--silkenbumer-r8a.de" C-m
+tmux split-window -v
+tmux select-pane -t 1
+tmux split-window -h
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/koken-themes/koken-lightgallery-plugin; yarn start" C-m
+tmux split-window -h
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/www.xn--silkenbumer-r8a.de/storage/themes/regale-lg" C-m
+tmux select-pane -t 4
+
+tmux split-window -v
+tmux select-pane -t 4
+tmux send-keys "clear" C-m
+tmux split-window -h
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/koken-themes/koken-lightgallery-plugin" C-m
+tmux split-window -h
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/www.xn--silkenbumer-r8a.de/storage/themes/regale-lg" C-m
+
+tmux select-pane -t 7
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/www.xn--silkenbumer-r8a.de; ssh silkenbaeumer@vserver2" C-m
+tmux split-window -h
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/koken-themes/koken-lightgallery-plugin; ssh silkenbaeumer@vserver2" C-m
+tmux split-window -h
+tmux send-keys "clear; cd $HOME/Sites/xn--silkenbumer-r8a.de/www.xn--silkenbumer-r8a.de/storage/themes/regale-lg; ssh silkenbaeumer@vserver2" C-m
+
+tmux select-pane -t 7
+tmux send-keys "cd www.xn--silkenbumer-r8a.de" C-m
+tmux select-pane -t 8
+tmux send-keys "cd koken/koken-lightgallery-plugin" C-m
+tmux select-pane -t 9
+tmux send-keys "cd koken/koken-theme-regale-lg" C-m
+
+tmux resize-pane -t 1 -x 67
+tmux resize-pane -t 2 -x 67
+tmux resize-pane -t 4 -x 67
+tmux resize-pane -t 5 -x 67
+tmux resize-pane -t 7 -x 67
+tmux resize-pane -t 8 -x 67
+
+tmux select-pane -t 5
+
+### run sublime
+# open sublime if it's not running already (for the current project)
+if [[ -z $(ps ax | grep Sublime\ Text | grep -v grep) ]]; then
+  tmux select-pane -t 5
+  tmux send-keys "s . -n" C-m
+  tmux select-pane -t 6
+  tmux send-keys "s . -a" C-m
+  # maximize to right of iterm
+fi
+# open google chrome to 2nd screen

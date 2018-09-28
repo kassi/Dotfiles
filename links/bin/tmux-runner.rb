@@ -1,12 +1,14 @@
 #!/usr/bin/env ruby
+$pid=$$
+$sigint = false
 $exit_sent = false
 $options = {}
 $real_pids = []
 
 def send_exit
   unless $exit_sent
-    system("tmux send-keys -t #{$options.target} '#{$options.kill}' Enter");
     $exit_sent = true
+    system("tmux send-keys -t #{$options.target} '#{$options.kill}'")
   end
 end
 
@@ -17,8 +19,15 @@ def send_kill
   end
 end
 
-Signal.trap("TERM") { send_exit }
-Signal.trap("INT") { send_kill }
+Signal.trap("TERM") { puts "SIGTERM received"; send_exit }
+Signal.trap("INT") do; end
+#   # puts "$sigint: #{$sigint}"
+#   unless $sigint
+#     $sigint = true
+#     puts "SIGINT received"
+#     send_exit
+#   end
+# end
 
 require 'optparse'
 
@@ -31,7 +40,6 @@ class Options
 end
 
 class Parser
-
   def self.parse(options)
     args = Options.new()
 
@@ -75,7 +83,7 @@ class Parser
 end
 $options = Parser.parse ARGV
 
-def child_pids_for_pane
+def child_pids_for_pane2
   tty = %x{tmux list-panes -F '\#{pane_index} \#{pane_tty}' | grep "^#{$options.target} " | awk '{print $2}'}.chomp
   tty.gsub!(/.*\//, '')
   processes = %x{ ps -t #{tty} -f }.split(/\n/)
@@ -93,11 +101,21 @@ def child_pids_for_pane
   pids
 end
 
-$pid = Process.fork do
+def child_pids_for_pane
+  processes = %x{ pstree #{$child_pid} }.split(/\n/)
+  pids = []
+  processes.each do |proc|
+    m = proc.match(/(\d+)/)
+    pids << m[1]
+  end
+  pids
+end
+
+$child_pid = Process.fork do
   system("tmux send-keys -R -t #{$options.target} 'reset; #{ARGV.join(%{ })}; tmux wait-for -S tmux-#{$options.name}' Enter \\; wait-for tmux-#{$options.name}")
 end
-sleep 1
-$real_pids = child_pids_for_pane
-puts "forked pids #{$real_pids}"
+# sleep 1
+# $real_pids = child_pids_for_pane
+# puts "forked pids: #{$real_pids}"
 Process.wait
-puts("terminated")
+# puts("terminated")

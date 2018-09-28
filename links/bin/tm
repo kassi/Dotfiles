@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# set -e # exit on error
+LAYOUT_HOME=$HOME/.tmux/layouts
+
+help() {
+  echo "Usage: $0 [options] <command>"
+  echo
+  echo "Available options:"
+  echo
+  echo -e "  -h\tPrint this help message end exit"
+  echo -e "  -v\tBe verbose"
+  echo
+  echo "Available commands:"
+  echo
+  echo -e "  help \r\t\tPrint detailed info about command"
+  echo -e "  list\r\t\tList all available layouts"
+  echo -e "  reset\r\t\tResets the current tmux window"
+  echo -e "  use\r\t\tUse a tmux layout"
+}
+
+reset_window() {
+  tmux select-pane -t 1
+  sleep 0.1
+  tmux list-panes | cut -d ':' -f 1 | grep -v ^1$ | sort -r | xargs -L 1 tmux kill-pane -t
+  reset
+}
+
+while getopts hv opt; do
+  case $opt in
+    h)
+      help
+      exit
+      ;;
+    v)
+      opt_v=1
+      ;;
+  esac
+done
+
+subcommand=$1; shift
+case $subcommand in
+  list)
+    echo "Available layouts:"
+    echo "------------------"
+    ls -1 $LAYOUT_HOME/
+    ;;
+  reset)
+    reset_window
+    ;;
+  use)
+    layout=$1; shift
+
+    if [[ ! -f $LAYOUT_HOME/$layout ]]; then
+      echo "The given layout '$layout' does not exist."
+      exit 1
+    fi
+    source $LAYOUT_HOME/$layout
+    ;;
+  help)
+    command=$1; shift
+    case $command in
+      list)
+        echo "Usage: $0 $command"
+        echo
+        echo "List all available layouts found in $HOME/.tmux/layouts."
+        exit
+        ;;
+      reset)
+        echo "Usage: $0 $command"
+        echo
+        echo "Resets the current window to single pane."
+        ;;
+      use)
+        echo "Usage: $0 $command <layout>"
+        echo
+        echo "Use the layout with the given name."
+        exit
+        ;;
+      *)
+        echo "Usage: $0 help <command>"
+        exit 1
+        ;;
+    esac
+    ;;
+  *)
+    echo "Invalid command"
+    echo
+    help
+    exit 1
+    ;;
+esac

@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
-# remove all panes except first one
-tmux select-pane -t 1
-tmux list-panes | cut -d ':' -f 1 | grep -v ^1$ | sort -r | xargs -L 1 tmux kill-pane -t
-reset
-
-if [ "$1" == "stop" ]; then
-  exit
-fi
+reset_window
 
 # create all necessary panes
 # first one is for foreman at the top
