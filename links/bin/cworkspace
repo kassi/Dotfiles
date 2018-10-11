@@ -1,0 +1,19 @@
+#!/bin/bash
+
+wsdir="$HOME/.vscode/workspaces"
+name="$1"
+if [[ -z $name ]]; then
+  echo "Usage: $0 <workspacename>"
+  exit 1
+fi
+
+file="$wsdir/$name.code-workspace"
+if [[ ! -f $file ]]; then
+  echo "Workspace $file not found"
+  exit 1
+fi
+
+if [[ -h $file ]]; then
+  file=$(readlink $file)
+fi
+
