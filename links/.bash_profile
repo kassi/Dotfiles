@@ -23,6 +23,6 @@ done
 
 eval "$(pyenv init -)"
 
-if [ -n "$TMUX" ]; then
+# if [ -n "$TMUX" ]; then
   . $POWERLINE_BINDINGS_PATH/bash/powerline.sh
-fi
+# fi
