@@ -40,7 +40,6 @@
 
 [core]
     editor = /usr/local/bin/subl -w
-	excludesfile = ~/.gitignore
 
 [credential]
     helper = osxkeychain
@@ -57,7 +56,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [filter "media"]
 	clean = git media clean %f
@@ -106,4 +105,4 @@
 	required = true
 [user]
 	email = kassi@users.noreply.github.com
-	name = Karsten Silkenbäumer
+	name = Karsten Silkenbäumer
