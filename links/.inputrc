@@ -1,7 +1,9 @@
+# see: $ info bash command "Readline Init File" "Readline Init File Syntax"
+
 # Jump with ESC+left / ESC+right through the command line
 "\e\e[C": forward-word
 "\e\e[D": backward-word
 
-# if enabled, this lets you hit tab to auto-complete a file or
-# directory name ignoring case
 set completion-ignore-case Off
+set mark-directories on
+set mark-symlinked-directories on
