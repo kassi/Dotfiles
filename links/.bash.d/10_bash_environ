@@ -29,7 +29,8 @@ export MYSQL_HOME=/usr/local/opt/$(brew list | grep mysql)/bin
 PATH=${MYSQL_HOME}:$PATH
 
 ### QT
-export PATH=$(brew --prefix qt@5.5)/bin:$PATH
+if [ -d /usr/local/opt/qt ]; then export PATH=/usr/local/opt/qt/bin:$PATH; fi
+if [ -d /usr/local/opt/qt55 ]; then export PATH=/usr/local/opt/qt55/bin:$PATH; fi # TODO: to be checked
 
 # for lib in "icu4c" "openssl@1.1" "readline"; do
 #   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
