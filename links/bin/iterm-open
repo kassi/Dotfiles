@@ -1,0 +1,15 @@
+#!/bin/bash
+EDITOR=/usr/local/bin/code
+
+pathname="$1"
+line_num="$2"
+filename="${pathname##*/}"
+extension="${filename##*.}"
+
+if [[ -n $line_num ]]; then
+  $EDITOR -g $pathname:$line_num
+elif [[ $extension == "html" && ${pathname/capybara\/screenshot/} != $pathname ]]; then
+  $EDITOR -g $pathname
+else
+  open $pathname
+fi
