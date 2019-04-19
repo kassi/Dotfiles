@@ -6,7 +6,7 @@
 # Standard environment variables
 export EDITOR=edit
 export VISUAL=vim
-export BUNDLER_EDITOR="subl"
+export BUNDLER_EDITOR="code"
 export HISTCONTROL=ignoredups
 export HISTSIZE=10000
 
@@ -24,13 +24,23 @@ export JAVA_HOME=/Library/Java/Home
 PATH=${JAVA_HOME}:$PATH
 
 ### MySQL
-export MYSQL_HOME=/usr/local/opt/$(brew list | grep mysql)/bin
+export MYSQL_HOME=/usr/local/opt/mysql@5.7/bin
 # export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 PATH=${MYSQL_HOME}:$PATH
 
+### PostgreSQL
+export PGDATA=/usr/local/var/postgres
+
 ### QT
+<<<<<<< HEAD
 if [ -d /usr/local/opt/qt ]; then export PATH=/usr/local/opt/qt/bin:$PATH; fi
 if [ -d /usr/local/opt/qt55 ]; then export PATH=/usr/local/opt/qt55/bin:$PATH; fi # TODO: to be checked
+=======
+export PATH=/usr/local/opt/qt/bin:$PATH
+
+#ADDED BY 010 EDITOR
+export PATH="$PATH:/Applications/010 Editor.app/Contents/CmdLine"
+>>>>>>> Clean up for new tools
 
 # for lib in "icu4c" "openssl@1.1" "readline"; do
 #   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
@@ -51,10 +61,6 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 [ -f "$HOME/.asdf/asdf.sh" ] && . $HOME/.asdf/asdf.sh
 [ -f $HOME/.asdf/completions/asdf.bash ] && . $HOME/.asdf/completions/asdf.bash
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -f "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-
 ### Perforce
 #export P4PORT=1666
 #export P4CLIENT=$USER
@@ -66,11 +72,14 @@ export PERL5LIB=
 ### perlbrew
 export PERLBREW_ROOT=$HOME/Library/Perl
 
-### Powerline
-export POWERLINE_BINDINGS_PATH=/usr/local/lib/python2.7/site-packages/powerline/bindings
-
 ### Python
 # export PYTHONPATH=`brew --prefix`/lib/python3.6/site-packages
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+### Powerline
+export POWERLINE_BINDINGS_PATH=/usr/local/lib/python2.7/site-packages/powerline/bindings
 
 ### Ruby
 export RDOCOPT="--encoding=UTF-8"
@@ -80,9 +89,6 @@ export RDOCOPT="--encoding=UTF-8"
 ### RVM
 # [ -f "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
 export rvm_silence_path_mismatch_check_flag=1 # to avoid stupid warnings
-
-# Riak
-# ulimit -n 1024
 
 ### Enhanced Git featured prompt
 export PS1=$Yellow$PathShort$Color_Off'$(git branch &>/dev/null;\

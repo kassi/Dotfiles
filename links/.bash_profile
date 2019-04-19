@@ -16,7 +16,9 @@ fi
 for file in \
   $PERLBREW_ROOT/etc/bashrc \
   $HOME/.rvm/scripts/rvm \
-  /usr/local/etc/bash_completion
+  /usr/local/etc/bash_completion \
+  $HOME/etc/bash_completion.d/* \
+  /usr/local/opt/asdf/asdf.sh
 do
   test -s "$file" && source "$file"
 done

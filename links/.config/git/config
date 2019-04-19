@@ -39,7 +39,7 @@
     ui = true
 
 [core]
-    editor = /usr/local/bin/subl -w
+    editor = /usr/local/bin/code -w
 	excludesfile = ~/.config/git/ignore
 
 [credential]
