@@ -17,3 +17,4 @@ if [[ -h $file ]]; then
   file=$(readlink $file)
 fi
 
+code "$file"
