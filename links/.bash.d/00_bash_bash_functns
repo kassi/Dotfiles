@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-function eval_timetracking {
+function eval_timetracking() {
   perl -ne 'BEGIN {%s=()} @a=split(";");$x=$a[4];$x=~s/,/./g;if($x == 0 || $a[6] eq "") {next};$s{$a[6]}+=$x; END {foreach $k(keys %s){printf "%12s: %.2f\n", $k, $s{$k}}}'
 }
 
-function prolog {
+function prolog() {
   file="$1"
   if [[ -z "$file" ]]; then
     line=$(head -n 1 "$file")
@@ -17,47 +17,112 @@ function prolog {
   fi
 }
 
-function forget_host {
+function forget_host() {
   sed -i .old "$1d" ~/.ssh/known_hosts
 }
 
-function racoonupdate {
+function racoonupdate() {
   sudo sed -i.old "s/local_address .*;/local_address $(ifconfig en0 | grep 'inet ' | cut -d ' ' -f 2);/" /etc/racoon/213.198.82.174.conf
 }
 
 ### n for node version management
-function load-node-version {
+function load-node-version() {
   if [[ -f .node-version ]]; then
     n $(cat .node-version)
   fi
 }
-function cd {
-  builtin cd "$@";
-  "load-node-version";
+function cd() {
+  builtin cd "$@"
+  "load-node-version"
 }
 
-function devinfo {
-  echo "which node:       " $(which node)
-  echo "  node version:   " $(node -v)
-  echo
-  # echo "which perl:     " $(which perl)
-  # echo "  perl version: " $(perl -v | grep '(v' | cut -d '(' -f 2 | cut -d ')' -f 1)
-  # echo
-  which_python=$(which python)
-  if [[ $which_python == *".pyenv"* ]]; then
-    which_python="$which_python ($(pyenv which python))"
+function _echo() {
+  local s="            " # max length ${#s}
+  local t="$1$s"
+  echo -e "$3${t:0:${#s}}$4$2"
+}
+
+function _status() {
+  local text="$1"
+  local code="$2"
+  if [[ $code == 0 ]]; then
+    local A="\033[0;32m";
+  else
+    local A="\033[0;31m";
   fi
-  echo "which python:     " $which_python
-  echo "  python version: " $(python --version 2>&1)
-  echo
-  echo "which ruby:       " $(which ruby)
-  echo "  ruby version:   " $(ruby -v)
-  echo "  rails version:  " $(rails -v)
-  echo
-  echo "MySQL version:    " $(mysql --version)
-  echo "MySQL status:     " $(mysql.server status)
+  _echo "status:" "$A$text\033[0m"
+}
+function devinfo() {
+  local A="\033[0;33m"
+  local B="\033[0;32m"
+  local Z="\033[0m"
+
+  for langtest in elixir erlang#erl nodejs#node perl python ruby rails; do
+    lang=$(echo $langtest | cut -d '#' -f 1)
+    test=$(echo $langtest | cut -d '#' -f 2)
+    if [[ -z $test ]]; then test=$lang; fi
+    which=$(which $test)
+
+    if [[ -z $which ]]; then continue; fi
+
+    if [[ $which =~ "asdf" ]]; then
+      which="$which -> $(asdf which $test)"
+      version=$(asdf current $lang)
+    elif [[ $which =~ "pyenv" ]]; then
+      version=$(pyenv version $lang)
+      if [[ $version =~ "system" ]]; then
+        version="$version -> $($which --version 2>&1)"
+      fi
+      which="$which -> $(pyenv which $test)"
+    else
+      version=$($test --version 2>&1)
+      if [[ $lang == perl ]]; then
+        version=$(echo "$version" | perl -ne '{m/\(v(.*)\)/ && print "$1\n"}')
+      elif [[ $lang == rails ]]; then
+        if [[ $version =~ "Rails is not currently installed" ]]; then continue; fi
+      elif [[ $lang == ruby ]]; then
+        version=$(echo "$version" | cut -d ' ' -f 2)
+      fi
+    fi
+    v1=$(echo $version | cut -d ' ' -f 1)
+    v2=$(echo $version | cut -d ' ' -f 2-)
+    if [[ $v1 == $v2 ]]; then v2=""; fi
+
+    _echo "$lang:" "$B$v1$Z $v2" $A $Z
+    _echo "  path:" "$which"
+    echo
+  done
+  if [[ $(which mysql) ]]; then
+    _echo "MySQL:" "$B$(mysql --version | cut -d ' ' -f 4-6)$Z" $A $Z
+    _status "$(mysql.server status)" $?
+    echo
+  fi
+  if [[ $(which pg_isready) ]]; then
+    _echo "PostgreSQL:" "$B$(pg_isready --version | cut -d ' ' -f 3)$Z" $A $Z
+    _status "$(pg_isready)" $?
+    echo
+  fi
 }
 
-function path {
+function path() {
   ruby -e 'require "pp"; pp ENV["PATH"].split(":")'
 }
+
+function git_sparse_clone() (
+  rurl="$1" localdir="$2" && shift 2
+
+  mkdir -p "$localdir"
+  cd "$localdir"
+
+  git init
+  git remote add -f origin "$rurl"
+
+  git config core.sparseCheckout true
+
+  # Loops over remaining args
+  for i; do
+    echo "$i" >>.git/info/sparse-checkout
+  done
+
+  git pull origin master
+)
