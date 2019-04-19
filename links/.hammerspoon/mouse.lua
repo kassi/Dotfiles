@@ -31,4 +31,4 @@ function mouseFadeOut()
     mouseCircle:delete()
   end
 end
-hs.hotkey.bind({"cmd"}, "f1", mouseHighlight)
+-- hs.hotkey.bind({"cmd"}, "f1", mouseHighlight)
