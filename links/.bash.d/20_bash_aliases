@@ -8,6 +8,7 @@ alias top='top -ocpu'
 
 # Tools
 alias SD='cd ~/System/Dotfiles'
+alias 010='/Applications/010\ Editor.app/Contents/CmdLine/010editor'
 alias chrome='open -a "Google Chrome"'
 alias ip='curl http://ipv4.icanhazip.com'
 alias opdone='say -v Zarvox "Operation finished"'
@@ -19,6 +20,7 @@ alias burntcookie='/Users/Kassi/Projects/Entwicklung/GitHub/GitHub/burnt-cookie/
 
 # General
 alias dev='cd ~/Projects/Entwicklung'
+alias hack='cd ~/Documents/Hacking'
 
 # Git
 alias gmm='git merge master'
@@ -28,6 +30,7 @@ alias gps='git push'
 
 # OSX
 alias airportcycle='networksetup -setairportpower airport off; networksetup -setairportpower airport on'
+alias cyberwatch='fswatch -0 -e index.mjs  src/core/operations/ tests/operations/ | xargs -0 -n 1 -I {} grunt test'
 
 # Python
 alias pip_update="pip list | cut -d ' ' -f 1 | xargs pip install --upgrade"
