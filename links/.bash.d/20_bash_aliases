@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # System
 alias grep='grep --color'
 alias l='ls -FGla'
@@ -17,6 +17,7 @@ alias s='/usr/local/bin/subl'
 alias st='/Applications/SourceTree.app/Contents/Resources/stree'
 alias audfprint='python /Users/Kassi/Projects/Entwicklung/GitHub/GitHub/audfprint/audfprint.py'
 alias burntcookie='/Users/Kassi/Projects/Entwicklung/GitHub/GitHub/burnt-cookie/target/release/burntcookie'
+alias term="osascript -e 'tell application \"iTerm2\" to activate'"
 
 # General
 alias dev='cd ~/Projects/Entwicklung'
@@ -39,6 +40,7 @@ alias pip_update="pip list | cut -d ' ' -f 1 | xargs pip install --upgrade"
 alias b='bundle'
 alias be='bundle exec'
 alias bo='bundle open'
+alias boe='bundle outdated --only-explicit'
 alias br='bin/rails'
 alias by='bundle && yarn'
 alias cd#='d=$(git rev-parse --show-toplevel 2>/dev/null);cd $d'
