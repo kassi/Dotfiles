@@ -25,94 +25,47 @@ function moveWindowOneSpace(direction)
    hs.mouse.setAbsolutePosition(mouseOrigin)
 end
 
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Left", function()
+-- Places a window on screen via percentages or x, y, w, h values.
+function placeWindow(xp, yp, wp, hp)
   local win = hs.window.focusedWindow()
-  local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
+  local f = win:frame()
 
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
+  f.x = max.x + (max.w / 100 * xp)
+  f.y = max.y + (max.h / 100 * yp)
+  f.w = max.w / 100 * wp
+  f.h = max.h / 100 * hp
   win:setFrame(f,0)
+end
+
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Left", function()
+  placeWindow(0, 0, 50, 100)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Right", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x + (max.w / 2)
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
-  win:setFrame(f,0)
+  placeWindow(50, 0, 50, 100)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Up", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w
-  f.h = max.h / 2
-  win:setFrame(f,0)
+  placeWindow(0, 0, 100, 50)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Down", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x
-  f.y = max.y + (max.h / 2)
-  f.w = max.w
-  f.h = max.h / 2
-  win:setFrame(f,0)
+  placeWindow(0, 50, 100, 50)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, ",", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w / 100 * 62
-  f.h = max.h
-  win:setFrame(f,0)
+  placeWindow(0, 0, 62, 100)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, ".", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x + (max.w / 100 * 62)
-  f.y = max.y
-  f.w = max.w / 100 * 38
-  f.h = max.h
-  win:setFrame(f,0)
+  placeWindow(62, 0, 38, 100)
 end)
 
 -- Center window
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "C", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x + (max.w - f.w) / 2
-  f.y = max.y + (max.h - f.h) / 2
-  win:setFrame(f,0)
+  placeWindow(25, 0, 50, 100)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "M", function()
@@ -122,18 +75,7 @@ end)
 
 -- Resize and center window
 hs.hotkey.bind({"shift", "ctrl", "alt", "cmd"}, "C", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-  local percw = 75
-  local perch = 90
-
-  f.w = max.w / 100 * percw
-  f.h = max.h / 100 * perch
-  f.x = max.x + (max.w - f.w) / 2
-  f.y = max.y + (max.h - f.h) / 2
-  win:setFrame(f,0)
+  placeWindow(12.5, 5, 75, 90)
 end)
 
 -- previous/next monitor
