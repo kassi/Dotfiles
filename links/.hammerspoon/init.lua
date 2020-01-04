@@ -1,7 +1,6 @@
 require("window")
 require("layout")
 require("mouse")
-require("screen")
 require("hs.ipc")
 -- require("caffeine")
 
