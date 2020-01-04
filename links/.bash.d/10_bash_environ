@@ -33,7 +33,7 @@ export PGDATA=/usr/local/var/postgres
 
 ### QT
 qt=$(\ls -1d /usr/local/opt/qt*)
-if [ -n "$qt"]; then export PATH=$qt/bin:$PATH; fi
+if [ -n "$qt" ]; then export PATH=$qt/bin:$PATH; fi
 
 #ADDED BY 010 EDITOR
 export PATH="$PATH:/Applications/010 Editor.app/Contents/CmdLine"
