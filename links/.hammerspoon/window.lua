@@ -1,84 +1,52 @@
-function moveWindowOneSpace(direction)
-   local mouseOrigin = hs.mouse.getAbsolutePosition()
-   local win = hs.window.focusedWindow()
-   local clickPoint = win:zoomButtonRect()
+spaces = require("hs._asm._undocumented.spaces")
+display = { "FD6E9053-53B7-5224-5892-F9F7EC52CEF3", "5EB068EE-E0CA-C18E-2224-7FCDAA1425C2", "FE48A37E-46ED-25A1-A7F9-E1C4D992B658" }
+local log = hs.logger.new('window','debug')
 
-   clickPoint.x = clickPoint.x + clickPoint.w + 3
-   clickPoint.y = clickPoint.y + (clickPoint.h / 2)
+-- hs.inspect(spaces.layout)
+-- spaces.mainScreenUUID()
 
-   local mouseClickEvent = hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.leftMouseDown, clickPoint)
-   mouseClickEvent:post()
-   hs.timer.usleep(150000)
+function placeWindow(x, y, w, h)
+  return function(win)
+    if win == nil then
+      win = hs.window.focusedWindow()
+    end
+    local f = win:frame()
+    local screen = win:screen()
+    local max = screen:frame()
 
-   local nextSpaceDownEvent = hs.eventtap.event.newKeyEvent({"ctrl"}, direction, true)
-   nextSpaceDownEvent:post()
-   hs.timer.usleep(150000)
-
-   local nextSpaceUpEvent = hs.eventtap.event.newKeyEvent({"ctrl"}, direction, false)
-   nextSpaceUpEvent:post()
-   hs.timer.usleep(150000)
-
-   local mouseReleaseEvent = hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.leftMouseUp, clickPoint)
-   mouseReleaseEvent:post()
-   hs.timer.usleep(150000)
-
-   hs.mouse.setAbsolutePosition(mouseOrigin)
+    f.x = max.x + max.w * x
+    f.y = max.y + max.h * y
+    f.w = max.w * w
+    f.h = max.h * h
+    win:setFrame(f, 0)
+  end
 end
 
--- Places a window on screen via percentages or x, y, w, h values.
-function placeWindow(xp, yp, wp, hp)
-  local win = hs.window.focusedWindow()
-  local screen = win:screen()
-  local max = screen:frame()
-  local f = win:frame()
-
-  f.x = max.x + (max.w / 100 * xp)
-  f.y = max.y + (max.h / 100 * yp)
-  f.w = max.w / 100 * wp
-  f.h = max.h / 100 * hp
-  win:setFrame(f,0)
+function moveWindowToDisplay(d)
+  return function(win)
+    local displays = hs.screen.allScreens()
+    if win == nil then
+      win = hs.window.focusedWindow()
+    end
+    win:moveToScreen(displays[d], false, true)
+  end
 end
 
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Left", function()
-  placeWindow(0, 0, 50, 100)
-end)
-
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Right", function()
-  placeWindow(50, 0, 50, 100)
-end)
-
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Up", function()
-  placeWindow(0, 0, 100, 50)
-end)
-
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Down", function()
-  placeWindow(0, 50, 100, 50)
-end)
-
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, ",", function()
-  placeWindow(0, 0, 62, 100)
-end)
-
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, ".", function()
-  placeWindow(62, 0, 38, 100)
-end)
-
--- Center window
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "C", function()
-  placeWindow(25, 0, 50, 100)
-end)
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Left",  placeWindow(0, 0, 0.5, 1))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Right", placeWindow(0.5, 0, 0.5, 1))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Up", placeWindow(0, 0, 1, 0.5))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Down", placeWindow(0, 0.5, 1, 0.5))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, ",", placeWindow(0, 0, 0.62, 1))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, ".", placeWindow(0.62, 0, 0.38, 1))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "C", placeWindow(0.25, 0, 0.5, 1))
+hs.hotkey.bind({"shift", "ctrl", "alt", "cmd"}, "C", placeWindow(0.125, 0.05, 0.75, 0.9))
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "M", function()
   local win = hs.window.focusedWindow()
+  local f = win:frame()
   win:maximize(0)
 end)
 
--- Resize and center window
-hs.hotkey.bind({"shift", "ctrl", "alt", "cmd"}, "C", function()
-  placeWindow(12.5, 5, 75, 90)
-end)
-
--- previous/next monitor
 hs.hotkey.bind({"ctrl", "alt"}, "Left", function()
   local win = hs.window.focusedWindow()
   win:moveOneScreenWest(0)
@@ -88,10 +56,6 @@ hs.hotkey.bind({"ctrl", "alt"}, "Right", function()
   win:moveOneScreenEast(0)
 end)
 
--- previous/next screen
-hs.hotkey.bind({"ctrl", "cmd"}, "Left", function()
-  moveWindowOneSpace("left")
-end)
-hs.hotkey.bind({"ctrl", "cmd"}, "Right", function()
-  moveWindowOneSpace("right")
-end)
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "1", moveWindowToDisplay(1))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "2", moveWindowToDisplay(2))
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "3", moveWindowToDisplay(3))
