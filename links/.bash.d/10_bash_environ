@@ -32,15 +32,11 @@ PATH=${MYSQL_HOME}:$PATH
 export PGDATA=/usr/local/var/postgres
 
 ### QT
-<<<<<<< HEAD
-if [ -d /usr/local/opt/qt ]; then export PATH=/usr/local/opt/qt/bin:$PATH; fi
-if [ -d /usr/local/opt/qt55 ]; then export PATH=/usr/local/opt/qt55/bin:$PATH; fi # TODO: to be checked
-=======
-export PATH=/usr/local/opt/qt/bin:$PATH
+qt=$(\ls -1d /usr/local/opt/qt*)
+if [ -n "$qt"]; then export PATH=$qt/bin:$PATH; fi
 
 #ADDED BY 010 EDITOR
 export PATH="$PATH:/Applications/010 Editor.app/Contents/CmdLine"
->>>>>>> Clean up for new tools
 
 # for lib in "icu4c" "openssl@1.1" "readline"; do
 #   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
