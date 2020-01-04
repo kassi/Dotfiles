@@ -1,4 +1,4 @@
-spaces = require("hs._asm._undocumented.spaces")
+spaces = require("hs._asm.undocumented.spaces")
 display = { "FD6E9053-53B7-5224-5892-F9F7EC52CEF3", "5EB068EE-E0CA-C18E-2224-7FCDAA1425C2", "FE48A37E-46ED-25A1-A7F9-E1C4D992B658" }
 local log = hs.logger.new('window','debug')
 
