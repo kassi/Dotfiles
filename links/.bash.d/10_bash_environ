@@ -76,7 +76,7 @@ export PERLBREW_ROOT=$HOME/Library/Perl
 # export PYTHONPATH=`brew --prefix`/lib/python3.6/site-packages
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 ### Powerline
 export POWERLINE_BINDINGS_PATH=/usr/local/lib/python2.7/site-packages/powerline/bindings
