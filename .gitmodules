@@ -70,3 +70,7 @@
 [submodule "links/.vim/bundle/vim-nerdtree-tabs"]
 	path = links/.vim/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "links/.hammerspoon/hs/_asm"]
+	path = links/.hammerspoon/hs/_asm
+	url = https://github.com/asmagill/hammerspoon_asm.git
+	branch = master
