@@ -40,9 +40,6 @@
 [submodule "links/.vim/bundle/vim-colors-solarized"]
 	path = links/.vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule "links/.vim/bundle/vim-colorschemes"]
-	path = links/.vim/bundle/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
 [submodule "links/.vim/bundle/vim-endwise"]
 	path = links/.vim/bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise.git
