@@ -1,9 +1,16 @@
 spaces = require("hs._asm.undocumented.spaces")
-display = { "FD6E9053-53B7-5224-5892-F9F7EC52CEF3", "5EB068EE-E0CA-C18E-2224-7FCDAA1425C2", "FE48A37E-46ED-25A1-A7F9-E1C4D992B658" }
 local log = hs.logger.new('window','debug')
 
 -- hs.inspect(spaces.layout)
 -- spaces.mainScreenUUID()
+
+function getDisplayInOrder(d)
+  local displays = {}
+  for k, v in pairs(hs.screen.screenPositions()) do
+    displays[v.x+1] = k
+  end
+  return displays[d]
+end
 
 function placeWindow(x, y, w, h)
   return function(win)
@@ -24,12 +31,16 @@ end
 
 function moveWindowToDisplay(d)
   return function(win)
-    local displays = hs.screen.allScreens()
     if win == nil then
       win = hs.window.focusedWindow()
     end
-    win:moveToScreen(displays[d], false, true)
+    win:moveToScreen(getDisplayInOrder(d), false, true)
   end
+end
+
+function enterFullscreenMode()
+  local win = hs.window.focusedWindow()
+  win:setFullScreen(true)
 end
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "Left",  placeWindow(0, 0, 0.5, 1))
