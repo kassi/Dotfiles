@@ -38,13 +38,11 @@ if [ -n "$qt" ]; then export PATH=$qt/bin:$PATH; fi
 #ADDED BY 010 EDITOR
 export PATH="$PATH:/Applications/010 Editor.app/Contents/CmdLine"
 
-# for lib in "icu4c" "openssl@1.1" "readline"; do
-#   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
-#   CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
-# done
-# for lib in "icu4c" "openssl@1.1"; do
-#   PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/$lib/lib/pkgconfig"
-# done
+for lib in "icu4c" "openssl@1.1" "readline"; do
+  LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
+  CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
+  PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/$lib/lib/pkgconfig"
+done
 # for lib in "openssl@1.1"; do
 #   PATH=/usr/local/opt/$lib/bin:$PATH
 # done
