@@ -7,6 +7,6 @@
 - https://rubygems.org
 :update_sources: true
 :verbose: true
-gem: --no-ri --no-rdoc
+gem: --no-document
 install: --no-rdoc --no-ri
 update: --no-rdoc --no-ri
