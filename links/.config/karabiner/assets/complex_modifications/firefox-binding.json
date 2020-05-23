@@ -1,0 +1,61 @@
+{
+  "title": "Firefox Rebinding",
+  "rules": [
+    {
+      "description": "Add prev/next tab cycling for CMD-ö/ä",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": 51,
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": {
+            "key_code": "tab",
+            "modifiers": [
+              "control",
+              "shift"
+            ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.mozilla\\.firefox"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": 52,
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": {
+            "key_code": "tab",
+            "modifiers": [
+              "control"
+            ]
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.mozilla\\.firefox"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
