@@ -18,6 +18,7 @@ alias st='/Applications/SourceTree.app/Contents/Resources/stree'
 alias audfprint='python /Users/Kassi/Projects/Entwicklung/GitHub/GitHub/audfprint/audfprint.py'
 alias burntcookie='/Users/Kassi/Projects/Entwicklung/GitHub/GitHub/burnt-cookie/target/release/burntcookie'
 alias term="osascript -e 'tell application \"iTerm2\" to activate'"
+alias ansp="ansible-playbook"
 
 # General
 alias dev='cd ~/Projects/Entwicklung'
@@ -45,6 +46,9 @@ alias br='bin/rails'
 alias by='bundle && yarn'
 alias cd#='d=$(git rev-parse --show-toplevel 2>/dev/null);cd $d'
 alias cop='rubocop -a --rails --require rubocop-rspec'
+alias dc='docker-compose'
+alias dcc='DOCKER_HOST=$(docker context inspect | grep Host.*ssh | cut -d \" -f 4) docker-compose'
+alias dcr='docker-compose run --rm'
 alias f='foreman start -f Procfile.dev'
 alias g='bundle exec guard'
 alias kill-spring='spring stop 2>/dev/null; ps ax | egrep "\bspring\b" | grep -v grep | awk "{print \$1}" | xargs kill -9; ps ax | grep spring'
