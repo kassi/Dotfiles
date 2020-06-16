@@ -126,3 +126,14 @@ function git_sparse_clone() (
 
   git pull origin master
 )
+
+# create a zip from a folder to be added to Arduino IDE
+function arduzip() {
+  name="$1"
+  path="$2"
+  if [[ -z "$path" ]]; then
+    echo "Usage: arduzip <NameOfZip.zip> <path/to/files>"
+  else
+    zip -vr -9 $name $path -x $path/.git/'*'
+  fi
+}
