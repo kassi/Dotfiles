@@ -47,13 +47,13 @@ export CPPFLAGS
 export PKG_CONFIG_PATH
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
-# asdf
-[ -f "$HOME/.asdf/asdf.sh" ] && . $HOME/.asdf/asdf.sh
-[ -f $HOME/.asdf/completions/asdf.bash ] && . $HOME/.asdf/completions/asdf.bash
+# # asdf
+# [ -f "$HOME/.asdf/asdf.sh" ] && echo . $HOME/.asdf/asdf.sh
+# [ -f $HOME/.asdf/completions/asdf.bash ] && . $HOME/.asdf/completions/asdf.bash
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -f "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+# # nvm
+#export NVM_DIR="$HOME/.nvm"
+# [ -f "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
 
 ### Perforce
 #export P4PORT=1666

@@ -14,6 +14,8 @@ if [[ -d $HOME/.bash.d ]]; then
 fi
 
 for file in \
+  $HOME/.asdf/asdf.sh \
+  $HOME/.asdf/completions/asdf.bash \
   $PERLBREW_ROOT/etc/bashrc \
   $HOME/.rvm/scripts/rvm \
   /usr/local/etc/bash_completion
