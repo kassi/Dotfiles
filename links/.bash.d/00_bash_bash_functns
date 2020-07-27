@@ -1,6 +1,81 @@
 #!/usr/bin/env bash
-function eval_timetracking() {
-  perl -ne 'BEGIN {%s=()} @a=split(";");$x=$a[4];$x=~s/,/./g;if($x == 0 || $a[6] eq "") {next};$s{$a[6]}+=$x; END {foreach $k(keys %s){printf "%12s: %.2f\n", $k, $s{$k}}}'
+
+# generate absolute path from relative path
+# $1     : relative filename
+# return : absolute path
+function abspath() {
+    if [ -d "$1" ]; then
+        # dir
+        (cd "$1"; pwd)
+    elif [ -f "$1" ]; then
+        # file
+        if [[ $1 = /* ]]; then
+            echo "$1"
+        elif [[ $1 == */* ]]; then
+            echo "$(cd "${1%/*}"; pwd)/${1##*/}"
+        else
+            echo "$(pwd)/$1"
+        fi
+    fi
+}
+
+# Replace the symbolic link with the original file, preserving all attributes.
+# $1     : symbolic link
+# $2     : optional, reverses the link. Used by revlink
+function delink {
+  link=${1:?"Usage: ${FUNCNAME[0]} <symbolic-link>"}
+  rev=$2
+  if [[ ! -L "$link" ]]; then
+    echo "'$link' is not a symbolic link"
+    return 1
+  fi
+
+  file=$(readlink "$link")
+  file=${file%%/}
+  rm "$link"
+  cp -a "$file" "$link"
+  abs_link=$(abspath "$link")
+
+  if [[ -n "$2" ]]; then
+    rm -rf "$file"
+    ln -s "$abs_link" "$file"
+  fi
+}
+
+# Replace the symbolic link with the original file, and reverse the symbolic link.
+# $1     : symbolic link
+function revlink() {
+  link=${1:?"Usage: ${FUNCNAME[0]} <symbolic-link>"}
+  delink "$link" 1
+}
+
+# Move a file to a different location and link to it
+# $1     : file or directory to be moved
+# $2     : destination directory
+function mvln() {
+  ( # subshell to be able to use option errexit
+    set -e
+    src=${1:?${FUNCNAME[0]} - source file or directory missing}
+    dest=${2:?${FUNCNAME[0]} - destination directory missing}
+    if [[ ! -e "$src" ]]; then
+      echo "source must exist"
+      return 1
+    fi
+    if [[ -L "$src" ]]; then
+      echo "source must not be a symbolic link"
+      return 1
+    fi
+    if [[ ! -d "$dest" ]]; then
+      echo "destination must be a directory"
+      return 1
+    fi
+
+    base=$(basename "$src")
+
+    cp -a "$src" "$dest"
+    rm -r "$src"
+    ln -s "$dest/$base" "$src"
+  )
 }
 
 function prolog() {
@@ -17,24 +92,20 @@ function prolog() {
   fi
 }
 
-function forget_host() {
-  sed -i .old "$1d" ~/.ssh/known_hosts
-}
-
 function racoonupdate() {
   sudo sed -i.old "s/local_address .*;/local_address $(ifconfig en0 | grep 'inet ' | cut -d ' ' -f 2);/" /etc/racoon/213.198.82.174.conf
 }
 
 ### n for node version management
-function load-node-version() {
-  if [[ -f .node-version ]]; then
-    n $(cat .node-version)
-  fi
-}
-function cd() {
-  builtin cd "$@"
-  "load-node-version"
-}
+# function load-node-version() {
+#   if [[ -f .node-version ]]; then
+#     n $(cat .node-version)
+#   fi
+# }
+# function cd() {
+#   builtin cd "$@"
+#   "load-node-version"
+# }
 
 function _echo() {
   local s="            " # max length ${#s}
@@ -52,6 +123,7 @@ function _status() {
   fi
   _echo "status:" "$A$text\033[0m"
 }
+
 function devinfo() {
   local A="\033[0;33m"
   local B="\033[0;32m"
