@@ -1,0 +1,23 @@
+#!/bin/bash
+
+what="$1"
+name="$2"
+
+if [[ -n $name ]]; then
+
+  if [[ $what == "react:component" ]]; then
+    exit
+  elif [[ $what == "redux:component" ]]; then
+    exit
+  elif [[ $what == "graphql:component" ]]; then
+    exit
+  fi
+fi
+
+echo "Usage: $0 <module> <name>"
+echo
+echo "Modules:"
+echo
+echo "  react:component"
+echo "  redux:component"
+echo "  graphql:component"

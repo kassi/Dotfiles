@@ -1,0 +1,5 @@
+#!/bin/bash
+
+active=$(spring status | awk '/^[:space:]*[0-9]+/ {print $1}')
+active=$(echo $active|sed 's/ /|/g')
+ps ax -opid,comm | grep spring | egrep -v "($active)" | awk '{print $1}' | xargs kill -9
