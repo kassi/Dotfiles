@@ -4,6 +4,7 @@
 ### export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/Developer/oxygen
 
 # Standard environment variables
+export PATH
 export EDITOR=edit
 export VISUAL=vim
 export BUNDLER_EDITOR="code"
@@ -32,26 +33,26 @@ PATH=${MYSQL_HOME}:$PATH
 export PGDATA=/usr/local/var/postgres
 
 ### QT
-qt=$(\ls -1d /usr/local/opt/qt*)
-if [ -n "$qt" ]; then export PATH=$qt/bin:$PATH; fi
+qt=$(\ls -1d /usr/local/opt/qt)
+if [ -n "$qt" ]; then PATH=$qt/bin:$PATH; fi
 
 #ADDED BY 010 EDITOR
-export PATH="$PATH:/Applications/010 Editor.app/Contents/CmdLine"
+# PATH="$PATH:/Applications/010 Editor.app/Contents/CmdLine"
 
 for lib in "icu4c" "openssl@1.1" "readline"; do
   LDFLAGS="$LDFLAGS -L/usr/local/opt/$lib/lib"
   CPPFLAGS="$CPPFLAGS -I/usr/local/opt/$lib/include"
   PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/$lib/lib/pkgconfig"
 done
-# for lib in "openssl@1.1"; do
-#   PATH=/usr/local/opt/$lib/bin:$PATH
-# done
+for lib in "openssl@1.1"; do
+  PATH=/usr/local/opt/$lib/bin:$PATH
+done
 export LDFLAGS
 export CPPFLAGS
 export PKG_CONFIG_PATH
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+PATH=$HOME/bin:/usr/local/sbin:$PATH
 
-# asdf
+### asdf
 [ -f "$HOME/.asdf/asdf.sh" ] && . $HOME/.asdf/asdf.sh
 [ -f $HOME/.asdf/completions/asdf.bash ] && . $HOME/.asdf/completions/asdf.bash
 
