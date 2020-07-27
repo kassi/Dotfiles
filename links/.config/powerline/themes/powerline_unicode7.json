@@ -60,7 +60,8 @@
 			"before": "✉ "
 		},
 		"powerline.segments.common.env.virtualenv": {
-			"before": "🐍 "
+			"before_": "🐍 ",
+      "before": " "
 		},
 		"powerline.segments.common.wthr.weather": {
 			"args": {

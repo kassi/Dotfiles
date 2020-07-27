@@ -21,6 +21,7 @@
 		"shell": {
 			"colorscheme": "kassi",
 			"theme": "kassi",
+      "top_theme": "powerline_unicode7",
 			"local_themes": {
 				"continuation": "continuation",
 				"select": "select"

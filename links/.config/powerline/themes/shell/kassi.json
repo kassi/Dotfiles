@@ -7,7 +7,7 @@
 			}
 		},
 		"virtualenv": {
-			"before": "ⓔ  "
+			"before": ""
 		},
 		"branch": {
 			"before": " ",
