@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -x bin/rails ]; then
+  bin/rails "$@"
+# elif [ -f Gemfile -o -d .bundle ]; then
+#   bundle exec rails "$@"
+else
+  \rails "$@"
+fi
